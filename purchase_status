@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require_relative "./lib/DesoYokasovonos.rb"
+
+purchase_status(ARGV[0], ARGV[1])
