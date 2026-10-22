@@ -1,14 +1,4 @@
-;## Crystal Supplements
-;(defun perogoseho (interpret)
-;  (ext:shell (format nil "~a" interpret))
-;)
-
-;#| Risuto |#
-;(defun risuto ()
-;  (ext:shell "./bin/lists/risuto 3 :ne_mais :oui_non :hello_world")
-;)
-
-; Bootstrapped DSL
+; Negative Constraint Logic
 (defun ne (x y)
   (princ "Non ")
   
@@ -31,8 +21,7 @@
   (progn (format nil "~a" a) (format nil "~a" b))
 )
 
-#| Postive Constraint Logic |#
-
+; Positive Constraint Logic
 (defun oui (x y)
   (princ "Oui, ")
   
@@ -51,7 +40,7 @@
   (princ ".")
 )
 
-#| Positive Probabilistic Otherwise |#
+; Positive Probabilistic Otherwise
 (defun sore (current_percentile greater_than less_than)
   (setq x current_percentile) (if (> x 0.8) (format nil "~a" greater_than) (format nil "~a" less_than))
 )
@@ -69,7 +58,7 @@
   (if (and (< z x) (> z y)) (format nil "~a" maybe_state) (format nil "~a" above_below))
 )
 
-#| Negative Probabilistic Otherwise |#
+; Negative Probabilistic Otherwise
 (defun nisore (current_percentile greater_than less_than)
   (setq x current_percentile) (if (< x 0.8) (format nil "~a" greater_than) (format nil "~a" less_than))
 )
@@ -88,8 +77,8 @@
   (if (and (< z x) (> z y)) (format nil "~a" above_below) (format nil "~a" maybe_state))
 )
 
-#| Contrastif |#
-(defun contrastif (upper_threshold middle_threshold lower_threshold)
+; Contrastif
+(defun contrastif (upper_threshold, middle_threshold, lower_threshold)
   (setq x  upper_threshold)
   (setq z middle_threshold)
   (setq y  lower_threshold)
@@ -108,11 +97,4 @@
         (ne_mais (ne "eighty" "twenty") (mais "fifty"))
         (ne_mais (ne "eighty" "fifty") (mais "twenty"))
   )
-)
-
-(defun odorokiyoso (lowest_probability highest_probability)
-  (setq x lowest_probability)
-  (setq y highest_probability)
-  
-  (/ x y)
 )
