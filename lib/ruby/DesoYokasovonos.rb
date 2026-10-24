@@ -1484,6 +1484,40 @@ def dynamic_mode_switcher
 end
 
 #################################################################################
+#                              Meaning Collissions                              #
+#################################################################################
+# lasokanon - Asokanonu - Lassus used to tie people to canons; more generally   #
+# used to refer to a general law and standard that tethers concepts to          #
+# disproportionate outcomes.                                                    #
+#################################################################################
+def calculate_circumference(radius)
+  pi            = 3.14
+  diameter      = 2 * radius
+  circumference = pi * diameter
+
+  [pi, radius, circumference]
+end
+
+def calculate_depth(circumference, specified_length)
+  circumference * specified_length
+end
+
+def asoka(*args)
+  canon_circumference, canon_depth, canon_power,
+  established_canon, counterfactual = args
+
+  def canon_actuelle(cradius, cdepth, catk)
+    [cradius, cdepth, catk]
+  end
+
+  def cnarrative(established_canon, counterfactual)
+    [established_canon, counterfactual]
+  end
+
+  [canon_actuelle(canon_circumference, canon_depth, canon_power), cnarrative(established_canon, counterfactual)]
+end
+
+#################################################################################
 #                         Japanese Negative Constraints                         #
 #################################################################################
 def encrire(input)
@@ -1658,7 +1692,7 @@ end
 def cint(assertion, upper_boundary)    
   bot_name = %Q(BIANCA)
 
-  cette_nombre = Proc(Int32, Int32, String).new { | x, interval |
+  cette_nombre = Proc.new { | x, interval |
     x > interval ? %Q(#{bot_name}: #{x} has crossed the upper boundary.) : %Q(#{bot_name}: #{x} has not crossed the upper boundary.)
   }
 
@@ -1668,7 +1702,7 @@ end
 def mint(assertion, lower_boundary)
   bot_name = %Q(BIANCA)
 
-  maisette_nombre = Proc(Int32, Int32, String).new { | x, interval |
+  maisette_nombre = Proc.new { | x, interval |
     x < interval ? %Q(#{bot_name}: #{x} has crossed the limit below the lower boundary.) : %Q(#{bot_name}: #{x} has not crossed the limit below the lower boundary.)
   }
 
@@ -1678,7 +1712,7 @@ end
 def sint(assertion, upper_boundary, lower_boundary)
   bot_name = %Q(BIANCA)
 
-  sinon_nombre = Proc(Int32, Int32, Int32, String).new { | x, first_interval, second_interval |
+  sinon_nombre = Proc.new { | x, first_interval, second_interval |
     x > first_interval && x < second_interval ? %Q(#{bot_name}: #{x} is floating between boundary conditions #{first_interval} and #{second_interval}.) : %Q(#{bot_name}: #{x} is not floating between boundary conditions #{first_interval} and #{second_interval}.)
   }
 
@@ -2006,6 +2040,52 @@ def purchase_status(item, dispenser)
   end
 end
 
+#################################################################################
+#                               Coordinate Actions                              #
+#################################################################################
+def cstate(*kwargs, perform_action)
+  player_actions = kwargs
+
+  player_actions[0][perform_action]
+end
+
+def caction(a, b, c)
+  actions = [
+    [[a, a, a],
+     [a, a, b],
+     [a, a, c]],
+
+    [[b, b, a],
+     [b, b, b],
+     [b, b, c]],
+
+    [[c, c, a],
+     [c, c, b],
+     [c, c, c]],
+  ]
+
+  row_options = [0, 1, 2]
+  col_options = [0, 1, 2]
+  arr_options = [0, 1, 2]
+
+  cur_row = row_options.sample
+  cur_col = col_options.sample
+  cur_arr = arr_options.sample
+
+  next_action = actions[cur_row][cur_col][cur_arr]
+
+  current_action  = cstate({
+    a => b,
+    b => c,
+    c => a,
+  }, next_action)
+
+  current_action
+end
+
+#################################################################################
+#                                  From Script                                  #
+#################################################################################
 def from_script
   file_name = ARGV[0]
 
@@ -2064,6 +2144,16 @@ def from_script
           puts curse_status(parsed_tokens[1], parsed_tokens[2])
         elsif parsed_tokens[0] == "ach"
           puts purchase_status(parsed_tokens[1], parsed_tokens[2], parsed_tokens[3], parsed_tokens[4])
+        elsif parsed_tokens[0] == "cin"
+          cint(parsed_tokens[1].to_i, parsed_tokens[2].to_i)
+        elsif parsed_tokens[0] == "min"
+          mint(parsed_tokens[1].to_i, parsed_tokens[2].to_i)
+        elsif parsed_tokens[0] == "sin"
+          sint(parsed_tokens[1].to_i, parsed_tokens[2].to_i)
+        elsif parsed_tokens[0] == "ne"
+          ne(parsed_tokens[1], parsed_tokens[2])
+        elsif parsed_tokens[0] == "mais"
+          mais(parsed_tokens[1], parsed_tokens[2])
         elsif parsed_tokens[0] == "cfs"
           print counterfact_selection(parsed_tokens[1], parsed_tokens[2], parsed_tokens[3], parsed_tokens[4], parsed_tokens[5], parsed_tokens[6])
           puts " "
@@ -2081,6 +2171,18 @@ def from_script
           current_information = File.read("data/statistics/label/current_information.txt")
 
           puts "#{current_probability} #{current_information}"
+        elsif parsed_tokens[0] == "asoka"
+          get_radius           = parsed_tokens[0].to_i
+          circumference_values = calculate_circumference(get_radius)
+
+          canon_power       = parsed_tokens[1].to_i
+          established_canon = parsed_tokens[2]
+          counterfactual    = parsed_tokens[3]
+
+          encrire(asoka(circumference_values[2], calculate_depth(circumference_values[2], 6), canon_power, established_canon, counterfactual))
+          encrireln(" ")
+        elsif parsed_tokens[0] == "cact"
+          encrireln(caction(parsed_tokens[1], parsed_tokens[2], parsed_tokens[3]))
         elsif parsed_tokens[0] == "vio"
           system("clear")
         elsif parsed_tokens[0] == "ext"
@@ -2138,6 +2240,16 @@ def repl
       puts curse_status(dispatcher[1], dispatcher[2])
     elsif dispatcher[0] == "ach"
       puts purchase_status(dispatcher[1], dispatcher[2], dispatcher[3], dispatcher[4])
+    elsif parsed_tokens[0] == "cin"
+      cint(dispatcher[1].to_i, dispatcher[2].to_i)
+    elsif parsed_tokens[0] == "min"
+      mint(dispatcher[1].to_i, dispatcher[2].to_i)
+    elsif parsed_tokens[0] == "sin"
+      sint(dispatcher[1].to_i, dispatcher[2].to_i)
+    elsif dispatcher[0] == "ne"
+      ne(dispatcher[1], dispatcher[2])
+    elsif dispatcher[0] == "mais"
+      mais(dispatcher[1], dispatcher[2])
     elsif dispatcher[0] == "cfs"
       print counterfact_selection(dispatcher[1], dispatcher[2], dispatcher[3], dispatcher[4], dispatcher[5], dispatcher[6])
       puts " "
@@ -2155,6 +2267,18 @@ def repl
       current_information = File.read("data/statistics/label/current_information.txt")
 
       puts "#{current_probability} #{current_information}"
+    elsif dispatcher[0] == "asoka"
+      get_radius           = dispatcher[0].to_i
+      circumference_values = calculate_circumference(get_radius)
+
+      canon_power       = dispatcher[1].to_i
+      established_canon = dispatcher[2]
+      counterfactual    = dispatcher[3]
+
+      encrire(asoka(circumference_values[2], calculate_depth(circumference_values[2], 6), canon_power, established_canon, counterfactual))
+      encrireln(" ")
+    elsif parsed_tokens[0] == "cact"
+      encrireln(caction(dispatcher[1], dispatcher[2], dispatcher[3]))
     elsif dispatcher[0] == "vio"
       system("clear")
     elsif dispatcher[0] == "ext"
@@ -2163,59 +2287,4 @@ def repl
       puts "Error: Non fonction nom."
     end
   end
-end
-
-def generate_interpreter
-  awasunu = %{
-#################################################################################
-#                                     REPL                                      #
-#################################################################################
-# This is for prototyping the scripting language as its developing, while being #
-# phased out for the reading from a script.                                     #
-#################################################################################
-def repl
-  loop do
-    print " >>> "; dispatcher = gets.chomp
-
-    dispatcher = dispatcher.tr "(", ""
-    dispatcher = dispatcher.tr ")", ""
-    dispatcher = dispatcher.tr %Q("), %Q()
-    dispatcher = dispatcher.split(" ")
-
-    if    dispatcher[0] == "arc"
-      hairbows(dispatcher[1], dispatcher[2], dispatcher[3])
-    elsif dispatcher[0] == "cor"
-      corsets(dispatcher[1], dispatcher[2], dispatcher[3])
-    elsif dispatcher[0] == "jup"
-      skirts(dispatcher[1], dispatcher[2], dispatcher[3])
-    elsif dispatcher[0] == "bas"
-      stocking(dispatcher[1], dispatcher[2], dispatcher[3])
-    elsif dispatcher[0] == "sab"
-      clogs(dispatcher[1], dispatcher[2], dispatcher[3])
-    elsif dispatcher[0] == "srg"
-      soap_region(dispatcher[1], dispatcher[2], dispatcher[3])
-    elsif dispatcher[0] == "pol"
-      chicken_breed(dispatcher[1], dispatcher[2], dispatcher[3])
-    elsif dispatcher[0] == "pom"
-      feed_chicken(dispatcher[1], dispatcher[2], dispatcher[3])
-    elsif dispatcher[0] == "rty"
-      stone_type(dispenser[1], dispatcher[2], dispatcher[3], dispatcher[4])
-    elsif dispatcher[0] == "cus"
-      puts curse_status(dispatcher[1], dispatcher[2])
-    elsif dispatcher[0] == "ach"
-      puts purchase_status(dispatcher[1], dispatcher[2], dispatcher[3], dispatcher[4])
-    elsif dispatcher[0] == "cfs"
-      print counterfact_selection(dispatcher[1], dispatcher[2], dispatcher[3], dispatcher[4], dispatcher[5], dispatcher[6])
-    elsif dispatcher[0] == "vio"
-      system("clear")
-    elsif dispatcher[0] == "ext"
-      abort
-    else
-      puts "Error: Non fonction nom."
-    end
-  end
-end
-  }
-
-  puts awasunu
 end
