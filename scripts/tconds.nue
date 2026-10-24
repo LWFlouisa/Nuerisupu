@@ -1,0 +1,20 @@
+-- Cint is the upper boundary
+(cint 9 8)
+
+-- Mint is the lower boundary
+(mint 9 2)
+
+-- Sint applies if lower than upper boundary or greater than lower boundary
+(sint 9 2 8)
+
+-- ne
+(ne "le_pomme" "le_banane")
+
+-- mais
+(mais "le_citrone"
+
+-- nai
+(nai "le_pomme" "le_banane")
+
+-- shikashi
+(shikashi "le_citrone"
