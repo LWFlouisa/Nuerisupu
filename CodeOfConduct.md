@@ -1,7 +1,7 @@
 ## Code Of Conduct
 Do Not Assume because we met before that you have permission to change or alter my software if you're not part of my open source team. Or change features without consulting me.
 
-* Training NPCs and Enemies in Roguelike games * This tool keeps AI models sandboxed and bounded, do not use this for training uncontained real world systems.
+[b]Training NPCs and Enemies in Roguelike games[/b] This tool keeps AI models sandboxed and bounded, do not use this for training uncontained real world systems.
 
 Do not repackage and rebrand this software to attempt to compete with it and provide no attribution.
 
