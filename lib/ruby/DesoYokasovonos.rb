@@ -6824,6 +6824,77 @@ def caction(a, b, c)
   current_action
 end
 
+#################################################################################
+#                           Atoll Of Damnation Cemetary                         #
+#################################################################################
+# Atoll De Encaved Cimitiere - "Chemin De Hemetsu", Chemihemetsu. A sinking     #
+# island that had once been larger that is known to sink faster in the center   #
+# of the atoll. Urban legend has it it was used to enterre execution victims    #
+# beheaded by the sword, with war prisoner corpses causing the island to        #
+# gradually sink.                                                               #
+#################################################################################
+def atoll(*args)
+  cemetary_y, cemetary_x, cemetary_d,
+  cavern_y, cavern_x, cavern_d = args
+
+  def cemetary_metrics(y, x)
+    y * x
+  end
+
+  def cavern_metrics(y, x)
+    y, * x
+  end
+
+  ["Cemetary is #{cemetary_y} by #{cemetary_x} or #{cemetary_metrics(cemetary_y, cemetary_x)} at depth #{cemetary_d}",
+   "Cavern is #{cavern_y} by #{cavern_x} or #{cemetary_metrics(cavern_y, cavern_x)} at depth #{cavern_d}"]
+end
+
+def measure_myth(*args)
+  a1, a2, b1, b2, c1, c2, search_space = args
+
+  search_space = search_space.to_i
+
+  search_space.times do
+    counterfact_selection(a1, a2, b1, b2, c1, c2)
+
+    dynamic_mode_wwitcher
+  end
+
+  caction("reality", "partially mythological" "mythological")
+end
+
+def tree_count(tree_number, *kwargs)
+  "The precise tree count should be #{tree_number}."
+
+  anomalous_features = kwargs
+
+  size_limit = anomalous_features.size.to_i
+  index = 0
+
+  size_limit.times do
+    current_anomaly = anomalous_features[index]
+
+    puts "The current anomaly is #{current_anomaly} that shouldn't be buried here."
+
+    index = index + 1
+  end
+end
+
+def ground_radar(y, x, z, *kwargs)
+  features = kwargs
+
+  size_limit = features.size.to_i
+  index = 0
+
+  size_limit.times do
+    current_feature = features[index]
+
+    puts "#{current_feature} exists here."
+
+    index = index + 1
+  end
+end
+
 ################################################################################################
 #                                Who What When Where Why How                                   #
 ################################################################################################
