@@ -1085,7 +1085,7 @@ module GameplayElements
       def self.bokette(phrase)
         sleep(1.5)
   
-        phrase)
+        phrase
       end
 
       ################################################################################################
@@ -1264,7 +1264,7 @@ module GameplayElements
       end
 
       def self.hairbow(a, b, hairbow_output)
-        "#{a} is wearing #{b} on her head.")
+        "#{a} is wearing #{b} on her head."
 
         File.open("#{hairbow_output}.awa", "w") {
           f.puts "#{a} #{b} #{hairbow_output}"
@@ -1276,7 +1276,7 @@ module GameplayElements
       end
 
       def self.corset(a, b, corset_output)
-        "#{a} is wearing #{b} on her head.")
+        "#{a} is wearing #{b} on her head."
 
         File.open("#{corset_output}.awa", "w") {
           f.puts "#{a} #{b} #{corset_output}"
@@ -1288,7 +1288,7 @@ module GameplayElements
       end
 
       def self.cabin_skirt(a, b, skirt_output)
-        "#{a} is wearing #{b} on her bottom.")
+        "#{a} is wearing #{b} on her bottom."
 
         File.open("#{skirt_output}.awa", "w") {
           f.puts "#{a} #{b} #{skirt_output}"
@@ -1300,7 +1300,7 @@ module GameplayElements
       end
 
       def self.wool_stockings(a, b, stocking_output)
-        "#{a} is wearing #{b} on her feet.")
+        "#{a} is wearing #{b} on her feet."
 
         File.open("#{stocking_output}.awa", "w") {
           f.puts "#{a} #{b} #{stocking_output}"
@@ -1312,7 +1312,7 @@ module GameplayElements
       end
 
       def black_stockings(a, b, bstocking_output)
-        "#{a} is wearing #{b} on her feet.")
+        "#{a} is wearing #{b} on her feet."
 
         File.open("#{bstocking_output}.awa", "w") {
           f.puts "#{a} #{b} #{bstocking_output}"
@@ -1324,7 +1324,7 @@ module GameplayElements
       end
 
       def self.wooden_sabots(a, b, sabot_output)
-        "#{a} is wearing #{b} on her feet.")
+        "#{a} is wearing #{b} on her feet."
 
         File.open("#{sabot_output}.awa", "w") {
           f.puts "#{a} #{b} #{sabot_output}"
@@ -1613,6 +1613,7 @@ module GameplayElements
 
       def self.hono(f)
         "Mois methode pour le fabrication mes objectifs est #{f}."
+      end
 
       def self.jiko(a, b, c)
         "Vous avoir damande moi #{a} a propos #{b} par #{c}."
@@ -1625,6 +1626,7 @@ module GameplayElements
 
       def self.genkei(a)
         "Je suis un etudiant a propos #{a}."
+      end
 
       def self.musee_comprime(a)
         "cette musee comprime #{a}."
@@ -1648,9 +1650,11 @@ module GameplayElements
 
       def self.nifukin(d)
         "Je suis ne en le voisinage de #{d}."
+      end
 
       def self.nemotif(e)
         "Mes raison pour ce est ne #{e}."
+      end
 
       def self.nihono(f)
         "Mois methode pour le fabrication mes objectifs est ne #{f}."
@@ -1663,6 +1667,7 @@ module GameplayElements
 
       def self.nijiko(a, b, c)
         "Vous ne avoir damande moi #{a} a propos #{b} par #{c}."
+      end
 
       def self.nigenkei(a)
         "Je suis ne un etudiant a propos #{a}."
@@ -1691,7 +1696,7 @@ module GameplayElements
 
       ## which relative?
       def self.quel_relatif(a)
-        "#{a}")
+        "#{a}"
       end
 
       ## is_relative_estranged est relative eloigne
@@ -1863,6 +1868,66 @@ module Samu
           current_information = File.read("data/statistics/label/current_information.txt")
 
           puts "#{current_information} #{current_probability}"
+        end
+      end
+
+      ########################################################################################
+      #                         Fueporu Et Perimetre De La Caverne                           #
+      ########################################################################################
+      # Evaluating the descrepancy between the height of the firepole and the height of the  #
+      # building to determine how much of the firepole in fact goes underground, and analyze #
+      # the cavern perimeter.                                                                #
+      ########################################################################################
+      def self.fueporu(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      # fagyka'u grana [ firepole ]
+      def self.fuegrana(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      def self.cavern_perimeter(pole_size, building_height)
+        if pole_size > building_height
+          under_layer = building_height - pole_size
+
+          "From the main floor, the fire pole is #{under_layer} feet underground."
+        else
+          "The size of the fire pole fits within the size of the building."
         end
       end
     end
@@ -2093,6 +2158,66 @@ module Hikasu
           puts "#{current_information} #{current_probability}"
         end
       end
+
+      ########################################################################################
+      #                         Fueporu Et Perimetre De La Caverne                           #
+      ########################################################################################
+      # Evaluating the descrepancy between the height of the firepole and the height of the  #
+      # building to determine how much of the firepole in fact goes underground, and analyze #
+      # the cavern perimeter.                                                                #
+      ########################################################################################
+      def self.fueporu(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      # fagyka'u grana [ firepole ]
+      def self.fuegrana(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      def self.cavern_perimeter(pole_size, building_height)
+        if pole_size > building_height
+          under_layer = building_height - pole_size
+
+          "From the main floor, the fire pole is #{under_layer} feet underground."
+        else
+          "The size of the fire pole fits within the size of the building."
+        end
+      end
     end
   end
 
@@ -2321,6 +2446,66 @@ module Sanu
           puts "#{current_information} #{current_probability}"
         end
       end
+
+      ########################################################################################
+      #                         Fueporu Et Perimetre De La Caverne                           #
+      ########################################################################################
+      # Evaluating the descrepancy between the height of the firepole and the height of the  #
+      # building to determine how much of the firepole in fact goes underground, and analyze #
+      # the cavern perimeter.                                                                #
+      ########################################################################################
+      def self.fueporu(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      # fagyka'u grana [ firepole ]
+      def self.fuegrana(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      def self.cavern_perimeter(pole_size, building_height)
+        if pole_size > building_height
+          under_layer = building_height - pole_size
+
+          "From the main floor, the fire pole is #{under_layer} feet underground."
+        else
+          "The size of the fire pole fits within the size of the building."
+        end
+      end
     end
   end
 
@@ -2547,6 +2732,66 @@ module Chanu
           current_information = File.read("data/statistics/label/current_information.txt")
 
           puts "#{current_information} #{current_probability}"
+        end
+      end
+
+      ########################################################################################
+      #                         Fueporu Et Perimetre De La Caverne                           #
+      ########################################################################################
+      # Evaluating the descrepancy between the height of the firepole and the height of the  #
+      # building to determine how much of the firepole in fact goes underground, and analyze #
+      # the cavern perimeter.                                                                #
+      ########################################################################################
+      def self.fueporu(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      # fagyka'u grana [ firepole ]
+      def self.fuegrana(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      def self.cavern_perimeter(pole_size, building_height)
+        if pole_size > building_height
+          under_layer = building_height - pole_size
+
+          "From the main floor, the fire pole is #{under_layer} feet underground."
+        else
+          "The size of the fire pole fits within the size of the building."
         end
       end
     end
@@ -2780,6 +3025,66 @@ module Sama
           puts "#{current_information} #{current_probability}"
         end
       end
+
+      ########################################################################################
+      #                         Fueporu Et Perimetre De La Caverne                           #
+      ########################################################################################
+      # Evaluating the descrepancy between the height of the firepole and the height of the  #
+      # building to determine how much of the firepole in fact goes underground, and analyze #
+      # the cavern perimeter.                                                                #
+      ########################################################################################
+      def self.fueporu(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      # fagyka'u grana [ firepole ]
+      def self.fuegrana(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      def self.cavern_perimeter(pole_size, building_height)
+        if pole_size > building_height
+          under_layer = building_height - pole_size
+
+          "From the main floor, the fire pole is #{under_layer} feet underground."
+        else
+          "The size of the fire pole fits within the size of the building."
+        end
+      end
     end
   end
 
@@ -2867,7 +3172,7 @@ module Sama
 end
 
 module Hikasa
-  module Cemotu
+  module Cemota
     class Objet
       def self.fruit(nom_de_fruit)
         nom_de_fruit
@@ -2909,7 +3214,7 @@ module Hikasa
     end
   end
 
-  module Numotu
+  module Numota
     class Phrase
       def self.express(objet, sujet, verbe)
         "#{objet.downcase}_#{sujet.downcase}_#{verbe.downcase}"
@@ -3008,6 +3313,66 @@ module Hikasa
           puts "#{current_information} #{current_probability}"
         end
       end
+
+      ########################################################################################
+      #                         Fueporu Et Perimetre De La Caverne                           #
+      ########################################################################################
+      # Evaluating the descrepancy between the height of the firepole and the height of the  #
+      # building to determine how much of the firepole in fact goes underground, and analyze #
+      # the cavern perimeter.                                                                #
+      ########################################################################################
+      def self.fueporu(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      # fagyka'u grana [ firepole ]
+      def self.fuegrana(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      def self.cavern_perimeter(pole_size, building_height)
+        if pole_size > building_height
+          under_layer = building_height - pole_size
+
+          "From the main floor, the fire pole is #{under_layer} feet underground."
+        else
+          "The size of the fire pole fits within the size of the building."
+        end
+      end
     end
   end
 
@@ -3095,6 +3460,210 @@ module Hikasa
 end
 
 module Sana
+  module Cemota
+    class Objet
+      def self.fruit(nom_de_fruit)
+        nom_de_fruit
+      end
+
+      def self.legume(nom_de_legume)
+        nom_de_legume
+      end
+
+      def self.viande(nom_de_viande)
+        nom_de_viande
+      end
+
+      def self.chaussure(nom_de_chaussure)
+        nom_de_chaussure
+      end
+    end
+
+    class Sujet
+      def self.moi(directive)
+        "#{directive} moi."
+      end
+
+      def self.toi(directive)
+        "#{directive} toi."
+      end
+
+      def self.ils(directive)
+        "#{directive} ils."
+      end
+
+      def self.elles(directive)
+        "#{directive} elles."
+      end
+
+      def self.noi(directive)
+        "#{directive} noi."
+      end
+    end
+  end
+
+  module Numota
+    class Phrase
+      def self.express(objet, sujet, verbe)
+        "#{objet.downcase}_#{sujet.downcase}_#{verbe.downcase}"
+      end
+    end
+  end
+
+  module LType
+    class List
+      def self.assert(cemotu, numotu)
+        list_name = [ cemotu, numotu ]
+      end
+    end
+  end
+
+  module GameDevElements
+    class InputMechanics
+      def self.sangehommage(prompt)
+        print "#{prompt} "; read_line = gets.not_nil!.chomp
+      end
+
+      def self.parle_merci(prompt, output)
+        print "#{prompt} "; puts output
+      end
+    end
+  end
+
+  module HikasaAwasunu
+    class Mperiod
+      #######################################################################################
+      #                                    Medusahoseki                                     #
+      #######################################################################################
+      def self.proximity_de_medusahoseki(a, b)
+        maximum_distance     = b
+        distance_probability = a
+  
+        calculation = maximum_distance - ( maximum_distance * distance_probability )
+        calculation = calculation.round
+  
+        "Distance from Medusahoseki ( Medusa Gem ): #{calculation}"
+      end
+
+      def self.proximity_de_nemedusahoseki(a, b)
+        maximum_distance     = b
+        distance_probability = 1 - a
+  
+        calculation = maximum_distance - ( maximum_distance * distance_probability )
+        calculation = calculation.round
+  
+        "Distance from Nemedusahoseki ( Salamander Riding Goat ): #{calculation}"
+      end
+
+      def self.proximity_de_memorie(a)
+        year_period = 12
+  
+        calculation = 12 - ( 12 * a )
+        calculation = calculation.round
+  
+        "This memory was from a prior #{calculation} year period"
+      end
+
+      def self.mperiod_sprox(a, b)
+        "#{a} #{b.upcase}"
+      end
+
+      ################################################################################################
+      #                                         Use Case                                             #
+      ################################################################################################
+      # Suppose two people wanted to cover up two dead bodies: one is the dead girlfriend of the     #
+      # main character, the other is the brother whom murdered the girlfriends brother having        #
+      # placing his unconscious body in a rail road, so blood isn't on his hands.                    #
+      #                                                                                              #
+      # This aims to solve how you investigate a case where the reality of one victim is not         #
+      # and one of the victims doesn't actually exist. The other is not murdered directly by the     #
+      # perpetrator.                                                                                 #
+      ################################################################################################
+      def self.first_murder(victim_name, victim_method, case_status, victim_real)
+        "#{victim_name}, #{victim_method}, #{case_status}] REALITY: #{victim_real}"
+      end
+  
+      def self.second_murder(victim_name, victim_method, case_status, victim_real)
+        "#{victim_name}, #{victim_method}, #{case_status}] REALITY: #{victim_real}"
+      end
+	
+      def self.investigate_case(a1, a2, b1, b2, c1, c2)
+        2.times do
+          Obelisk::NeuroSymbolic::BasicML.get_statistics(a1, a2,
+                                                         b1, b2,
+                                                         c1, c2)
+      
+          Obelisk::NeuroSymbolic::BasicML.dynamic_mode_switcher
+
+          current_probability = File.read("data/statistics/probability/current_probability.txt").to_f
+          current_information = File.read("data/statistics/label/current_information.txt")
+
+          puts "#{current_information} #{current_probability}"
+        end
+      end
+
+      ########################################################################################
+      #                         Fueporu Et Perimetre De La Caverne                           #
+      ########################################################################################
+      # Evaluating the descrepancy between the height of the firepole and the height of the  #
+      # building to determine how much of the firepole in fact goes underground, and analyze #
+      # the cavern perimeter.                                                                #
+      ########################################################################################
+      def self.fueporu(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      # fagyka'u grana [ firepole ]
+      def self.fuegrana(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      def self.cavern_perimeter(pole_size, building_height)
+        if pole_size > building_height
+          under_layer = building_height - pole_size
+
+          "From the main floor, the fire pole is #{under_layer} feet underground."
+        else
+          "The size of the fire pole fits within the size of the building."
+        end
+      end
+    end
+  end
+
   module RankDialogue
     class SanaDialogue
       ## Theoretical, such as if someone became a diety.
@@ -3179,6 +3748,210 @@ module Sana
 end
 
 module Chana
+  module Cemota
+    class Objet
+      def self.fruit(nom_de_fruit)
+        nom_de_fruit
+      end
+
+      def self.legume(nom_de_legume)
+        nom_de_legume
+      end
+
+      def self.viande(nom_de_viande)
+        nom_de_viande
+      end
+
+      def self.chaussure(nom_de_chaussure)
+        nom_de_chaussure
+      end
+    end
+
+    class Sujet
+      def self.moi(directive)
+        "#{directive} moi."
+      end
+
+      def self.toi(directive)
+        "#{directive} toi."
+      end
+
+      def self.ils(directive)
+        "#{directive} ils."
+      end
+
+      def self.elles(directive)
+        "#{directive} elles."
+      end
+
+      def self.noi(directive)
+        "#{directive} noi."
+      end
+    end
+  end
+
+  module Numota
+    class Phrase
+      def self.express(objet, sujet, verbe)
+        "#{objet.downcase}_#{sujet.downcase}_#{verbe.downcase}"
+      end
+    end
+  end
+
+  module LType
+    class List
+      def self.assert(cemotu, numotu)
+        list_name = [ cemotu, numotu ]
+      end
+    end
+  end
+
+  module GameDevElements
+    class InputMechanics
+      def self.sangehommage(prompt)
+        print "#{prompt} "; read_line = gets.not_nil!.chomp
+      end
+
+      def self.parle_merci(prompt, output)
+        print "#{prompt} "; puts output
+      end
+    end
+  end
+
+  module HikasaAwasunu
+    class Mperiod
+      #######################################################################################
+      #                                    Medusahoseki                                     #
+      #######################################################################################
+      def self.proximity_de_medusahoseki(a, b)
+        maximum_distance     = b
+        distance_probability = a
+  
+        calculation = maximum_distance - ( maximum_distance * distance_probability )
+        calculation = calculation.round
+  
+        "Distance from Medusahoseki ( Medusa Gem ): #{calculation}"
+      end
+
+      def self.proximity_de_nemedusahoseki(a, b)
+        maximum_distance     = b
+        distance_probability = 1 - a
+  
+        calculation = maximum_distance - ( maximum_distance * distance_probability )
+        calculation = calculation.round
+  
+        "Distance from Nemedusahoseki ( Salamander Riding Goat ): #{calculation}"
+      end
+
+      def self.proximity_de_memorie(a)
+        year_period = 12
+  
+        calculation = 12 - ( 12 * a )
+        calculation = calculation.round
+  
+        "This memory was from a prior #{calculation} year period"
+      end
+
+      def self.mperiod_sprox(a, b)
+        "#{a} #{b.upcase}"
+      end
+
+      ################################################################################################
+      #                                         Use Case                                             #
+      ################################################################################################
+      # Suppose two people wanted to cover up two dead bodies: one is the dead girlfriend of the     #
+      # main character, the other is the brother whom murdered the girlfriends brother having        #
+      # placing his unconscious body in a rail road, so blood isn't on his hands.                    #
+      #                                                                                              #
+      # This aims to solve how you investigate a case where the reality of one victim is not         #
+      # and one of the victims doesn't actually exist. The other is not murdered directly by the     #
+      # perpetrator.                                                                                 #
+      ################################################################################################
+      def self.first_murder(victim_name, victim_method, case_status, victim_real)
+        "#{victim_name}, #{victim_method}, #{case_status}] REALITY: #{victim_real}"
+      end
+  
+      def self.second_murder(victim_name, victim_method, case_status, victim_real)
+        "#{victim_name}, #{victim_method}, #{case_status}] REALITY: #{victim_real}"
+      end
+	
+      def self.investigate_case(a1, a2, b1, b2, c1, c2)
+        2.times do
+          Obelisk::NeuroSymbolic::BasicML.get_statistics(a1, a2,
+                                                         b1, b2,
+                                                         c1, c2)
+      
+          Obelisk::NeuroSymbolic::BasicML.dynamic_mode_switcher
+
+          current_probability = File.read("data/statistics/probability/current_probability.txt").to_f
+          current_information = File.read("data/statistics/label/current_information.txt")
+
+          puts "#{current_information} #{current_probability}"
+        end
+      end
+
+      ########################################################################################
+      #                         Fueporu Et Perimetre De La Caverne                           #
+      ########################################################################################
+      # Evaluating the descrepancy between the height of the firepole and the height of the  #
+      # building to determine how much of the firepole in fact goes underground, and analyze #
+      # the cavern perimeter.                                                                #
+      ########################################################################################
+      def self.fueporu(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      # fagyka'u grana [ firepole ]
+      def self.fuegrana(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      def self.cavern_perimeter(pole_size, building_height)
+        if pole_size > building_height
+          under_layer = building_height - pole_size
+
+          "From the main floor, the fire pole is #{under_layer} feet underground."
+        else
+          "The size of the fire pole fits within the size of the building."
+        end
+      end
+    end
+  end
+
   module RankDialogue
     class ChanaDialogue
       ## Theoretical, such as if someone became a diety.
@@ -3252,6 +4025,210 @@ end
 #                               Agentic Vehicular Management                                 #
 ##############################################################################################
 module Samos
+  module Cemota
+    class Objet
+      def self.fruit(nom_de_fruit)
+        nom_de_fruit
+      end
+
+      def self.legume(nom_de_legume)
+        nom_de_legume
+      end
+
+      def self.viande(nom_de_viande)
+        nom_de_viande
+      end
+
+      def self.chaussure(nom_de_chaussure)
+        nom_de_chaussure
+      end
+    end
+
+    class Sujet
+      def self.moi(directive)
+        "#{directive} moi."
+      end
+
+      def self.toi(directive)
+        "#{directive} toi."
+      end
+
+      def self.ils(directive)
+        "#{directive} ils."
+      end
+
+      def self.elles(directive)
+        "#{directive} elles."
+      end
+
+      def self.noi(directive)
+        "#{directive} noi."
+      end
+    end
+  end
+
+  module Numota
+    class Phrase
+      def self.express(objet, sujet, verbe)
+        "#{objet.downcase}_#{sujet.downcase}_#{verbe.downcase}"
+      end
+    end
+  end
+
+  module LType
+    class List
+      def self.assert(cemotu, numotu)
+        list_name = [ cemotu, numotu ]
+      end
+    end
+  end
+
+  module GameDevElements
+    class InputMechanics
+      def self.sangehommage(prompt)
+        print "#{prompt} "; read_line = gets.not_nil!.chomp
+      end
+
+      def self.parle_merci(prompt, output)
+        print "#{prompt} "; puts output
+      end
+    end
+  end
+
+  module HikasaAwasunu
+    class Mperiod
+      #######################################################################################
+      #                                    Medusahoseki                                     #
+      #######################################################################################
+      def self.proximity_de_medusahoseki(a, b)
+        maximum_distance     = b
+        distance_probability = a
+  
+        calculation = maximum_distance - ( maximum_distance * distance_probability )
+        calculation = calculation.round
+  
+        "Distance from Medusahoseki ( Medusa Gem ): #{calculation}"
+      end
+
+      def self.proximity_de_nemedusahoseki(a, b)
+        maximum_distance     = b
+        distance_probability = 1 - a
+  
+        calculation = maximum_distance - ( maximum_distance * distance_probability )
+        calculation = calculation.round
+  
+        "Distance from Nemedusahoseki ( Salamander Riding Goat ): #{calculation}"
+      end
+
+      def self.proximity_de_memorie(a)
+        year_period = 12
+  
+        calculation = 12 - ( 12 * a )
+        calculation = calculation.round
+  
+        "This memory was from a prior #{calculation} year period"
+      end
+
+      def self.mperiod_sprox(a, b)
+        "#{a} #{b.upcase}"
+      end
+
+      ################################################################################################
+      #                                         Use Case                                             #
+      ################################################################################################
+      # Suppose two people wanted to cover up two dead bodies: one is the dead girlfriend of the     #
+      # main character, the other is the brother whom murdered the girlfriends brother having        #
+      # placing his unconscious body in a rail road, so blood isn't on his hands.                    #
+      #                                                                                              #
+      # This aims to solve how you investigate a case where the reality of one victim is not         #
+      # and one of the victims doesn't actually exist. The other is not murdered directly by the     #
+      # perpetrator.                                                                                 #
+      ################################################################################################
+      def self.first_murder(victim_name, victim_method, case_status, victim_real)
+        "#{victim_name}, #{victim_method}, #{case_status}] REALITY: #{victim_real}"
+      end
+  
+      def self.second_murder(victim_name, victim_method, case_status, victim_real)
+        "#{victim_name}, #{victim_method}, #{case_status}] REALITY: #{victim_real}"
+      end
+	
+      def self.investigate_case(a1, a2, b1, b2, c1, c2)
+        2.times do
+          Obelisk::NeuroSymbolic::BasicML.get_statistics(a1, a2,
+                                                         b1, b2,
+                                                         c1, c2)
+      
+          Obelisk::NeuroSymbolic::BasicML.dynamic_mode_switcher
+
+          current_probability = File.read("data/statistics/probability/current_probability.txt").to_f
+          current_information = File.read("data/statistics/label/current_information.txt")
+
+          puts "#{current_information} #{current_probability}"
+        end
+      end
+
+      ########################################################################################
+      #                         Fueporu Et Perimetre De La Caverne                           #
+      ########################################################################################
+      # Evaluating the descrepancy between the height of the firepole and the height of the  #
+      # building to determine how much of the firepole in fact goes underground, and analyze #
+      # the cavern perimeter.                                                                #
+      ########################################################################################
+      def self.fueporu(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      # fagyka'u grana [ firepole ]
+      def self.fuegrana(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      def self.cavern_perimeter(pole_size, building_height)
+        if pole_size > building_height
+          under_layer = building_height - pole_size
+
+          "From the main floor, the fire pole is #{under_layer} feet underground."
+        else
+          "The size of the fire pole fits within the size of the building."
+        end
+      end
+    end
+  end
+
   module RankDialogue
     class SamosDialogue
       ## Theoretical, such as if someone became a diety.
@@ -3336,6 +4313,210 @@ module Samos
 end
 
 module Hikasos
+  module Cemota
+    class Objet
+      def self.fruit(nom_de_fruit)
+        nom_de_fruit
+      end
+
+      def self.legume(nom_de_legume)
+        nom_de_legume
+      end
+
+      def self.viande(nom_de_viande)
+        nom_de_viande
+      end
+
+      def self.chaussure(nom_de_chaussure)
+        nom_de_chaussure
+      end
+    end
+
+    class Sujet
+      def self.moi(directive)
+        "#{directive} moi."
+      end
+
+      def self.toi(directive)
+        "#{directive} toi."
+      end
+
+      def self.ils(directive)
+        "#{directive} ils."
+      end
+
+      def self.elles(directive)
+        "#{directive} elles."
+      end
+
+      def self.noi(directive)
+        "#{directive} noi."
+      end
+    end
+  end
+
+  module Numota
+    class Phrase
+      def self.express(objet, sujet, verbe)
+        "#{objet.downcase}_#{sujet.downcase}_#{verbe.downcase}"
+      end
+    end
+  end
+
+  module LType
+    class List
+      def self.assert(cemotu, numotu)
+        list_name = [ cemotu, numotu ]
+      end
+    end
+  end
+
+  module GameDevElements
+    class InputMechanics
+      def self.sangehommage(prompt)
+        print "#{prompt} "; read_line = gets.not_nil!.chomp
+      end
+
+      def self.parle_merci(prompt, output)
+        print "#{prompt} "; puts output
+      end
+    end
+  end
+
+  module HikasaAwasunu
+    class Mperiod
+      #######################################################################################
+      #                                    Medusahoseki                                     #
+      #######################################################################################
+      def self.proximity_de_medusahoseki(a, b)
+        maximum_distance     = b
+        distance_probability = a
+  
+        calculation = maximum_distance - ( maximum_distance * distance_probability )
+        calculation = calculation.round
+  
+        "Distance from Medusahoseki ( Medusa Gem ): #{calculation}"
+      end
+
+      def self.proximity_de_nemedusahoseki(a, b)
+        maximum_distance     = b
+        distance_probability = 1 - a
+  
+        calculation = maximum_distance - ( maximum_distance * distance_probability )
+        calculation = calculation.round
+  
+        "Distance from Nemedusahoseki ( Salamander Riding Goat ): #{calculation}"
+      end
+
+      def self.proximity_de_memorie(a)
+        year_period = 12
+  
+        calculation = 12 - ( 12 * a )
+        calculation = calculation.round
+  
+        "This memory was from a prior #{calculation} year period"
+      end
+
+      def self.mperiod_sprox(a, b)
+        "#{a} #{b.upcase}"
+      end
+
+      ################################################################################################
+      #                                         Use Case                                             #
+      ################################################################################################
+      # Suppose two people wanted to cover up two dead bodies: one is the dead girlfriend of the     #
+      # main character, the other is the brother whom murdered the girlfriends brother having        #
+      # placing his unconscious body in a rail road, so blood isn't on his hands.                    #
+      #                                                                                              #
+      # This aims to solve how you investigate a case where the reality of one victim is not         #
+      # and one of the victims doesn't actually exist. The other is not murdered directly by the     #
+      # perpetrator.                                                                                 #
+      ################################################################################################
+      def self.first_murder(victim_name, victim_method, case_status, victim_real)
+        "#{victim_name}, #{victim_method}, #{case_status}] REALITY: #{victim_real}"
+      end
+  
+      def self.second_murder(victim_name, victim_method, case_status, victim_real)
+        "#{victim_name}, #{victim_method}, #{case_status}] REALITY: #{victim_real}"
+      end
+	
+      def self.investigate_case(a1, a2, b1, b2, c1, c2)
+        2.times do
+          Obelisk::NeuroSymbolic::BasicML.get_statistics(a1, a2,
+                                                         b1, b2,
+                                                         c1, c2)
+      
+          Obelisk::NeuroSymbolic::BasicML.dynamic_mode_switcher
+
+          current_probability = File.read("data/statistics/probability/current_probability.txt").to_f
+          current_information = File.read("data/statistics/label/current_information.txt")
+
+          puts "#{current_information} #{current_probability}"
+        end
+      end
+
+      ########################################################################################
+      #                         Fueporu Et Perimetre De La Caverne                           #
+      ########################################################################################
+      # Evaluating the descrepancy between the height of the firepole and the height of the  #
+      # building to determine how much of the firepole in fact goes underground, and analyze #
+      # the cavern perimeter.                                                                #
+      ########################################################################################
+      def self.fueporu(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      # fagyka'u grana [ firepole ]
+      def self.fuegrana(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      def self.cavern_perimeter(pole_size, building_height)
+        if pole_size > building_height
+          under_layer = building_height - pole_size
+
+          "From the main floor, the fire pole is #{under_layer} feet underground."
+        else
+          "The size of the fire pole fits within the size of the building."
+        end
+      end
+    end
+  end
+
   module RankDialogue
     class HikasosDialogue
       ## Theoretical, such as if someone became a diety.
@@ -3420,6 +4601,210 @@ module Hikasos
 end
 
 module Sanos
+  module Cemota
+    class Objet
+      def self.fruit(nom_de_fruit)
+        nom_de_fruit
+      end
+
+      def self.legume(nom_de_legume)
+        nom_de_legume
+      end
+
+      def self.viande(nom_de_viande)
+        nom_de_viande
+      end
+
+      def self.chaussure(nom_de_chaussure)
+        nom_de_chaussure
+      end
+    end
+
+    class Sujet
+      def self.moi(directive)
+        "#{directive} moi."
+      end
+
+      def self.toi(directive)
+        "#{directive} toi."
+      end
+
+      def self.ils(directive)
+        "#{directive} ils."
+      end
+
+      def self.elles(directive)
+        "#{directive} elles."
+      end
+
+      def self.noi(directive)
+        "#{directive} noi."
+      end
+    end
+  end
+
+  module Numota
+    class Phrase
+      def self.express(objet, sujet, verbe)
+        "#{objet.downcase}_#{sujet.downcase}_#{verbe.downcase}"
+      end
+    end
+  end
+
+  module LType
+    class List
+      def self.assert(cemotu, numotu)
+        list_name = [ cemotu, numotu ]
+      end
+    end
+  end
+
+  module GameDevElements
+    class InputMechanics
+      def self.sangehommage(prompt)
+        print "#{prompt} "; read_line = gets.not_nil!.chomp
+      end
+
+      def self.parle_merci(prompt, output)
+        print "#{prompt} "; puts output
+      end
+    end
+  end
+
+  module HikasaAwasunu
+    class Mperiod
+      #######################################################################################
+      #                                    Medusahoseki                                     #
+      #######################################################################################
+      def self.proximity_de_medusahoseki(a, b)
+        maximum_distance     = b
+        distance_probability = a
+  
+        calculation = maximum_distance - ( maximum_distance * distance_probability )
+        calculation = calculation.round
+  
+        "Distance from Medusahoseki ( Medusa Gem ): #{calculation}"
+      end
+
+      def self.proximity_de_nemedusahoseki(a, b)
+        maximum_distance     = b
+        distance_probability = 1 - a
+  
+        calculation = maximum_distance - ( maximum_distance * distance_probability )
+        calculation = calculation.round
+  
+        "Distance from Nemedusahoseki ( Salamander Riding Goat ): #{calculation}"
+      end
+
+      def self.proximity_de_memorie(a)
+        year_period = 12
+  
+        calculation = 12 - ( 12 * a )
+        calculation = calculation.round
+  
+        "This memory was from a prior #{calculation} year period"
+      end
+
+      def self.mperiod_sprox(a, b)
+        "#{a} #{b.upcase}"
+      end
+
+      ################################################################################################
+      #                                         Use Case                                             #
+      ################################################################################################
+      # Suppose two people wanted to cover up two dead bodies: one is the dead girlfriend of the     #
+      # main character, the other is the brother whom murdered the girlfriends brother having        #
+      # placing his unconscious body in a rail road, so blood isn't on his hands.                    #
+      #                                                                                              #
+      # This aims to solve how you investigate a case where the reality of one victim is not         #
+      # and one of the victims doesn't actually exist. The other is not murdered directly by the     #
+      # perpetrator.                                                                                 #
+      ################################################################################################
+      def self.first_murder(victim_name, victim_method, case_status, victim_real)
+        "#{victim_name}, #{victim_method}, #{case_status}] REALITY: #{victim_real}"
+      end
+  
+      def self.second_murder(victim_name, victim_method, case_status, victim_real)
+        "#{victim_name}, #{victim_method}, #{case_status}] REALITY: #{victim_real}"
+      end
+	
+      def self.investigate_case(a1, a2, b1, b2, c1, c2)
+        2.times do
+          Obelisk::NeuroSymbolic::BasicML.get_statistics(a1, a2,
+                                                         b1, b2,
+                                                         c1, c2)
+      
+          Obelisk::NeuroSymbolic::BasicML.dynamic_mode_switcher
+
+          current_probability = File.read("data/statistics/probability/current_probability.txt").to_f
+          current_information = File.read("data/statistics/label/current_information.txt")
+
+          puts "#{current_information} #{current_probability}"
+        end
+      end
+
+      ########################################################################################
+      #                         Fueporu Et Perimetre De La Caverne                           #
+      ########################################################################################
+      # Evaluating the descrepancy between the height of the firepole and the height of the  #
+      # building to determine how much of the firepole in fact goes underground, and analyze #
+      # the cavern perimeter.                                                                #
+      ########################################################################################
+      def self.fueporu(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      # fagyka'u grana [ firepole ]
+      def self.fuegrana(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      def self.cavern_perimeter(pole_size, building_height)
+        if pole_size > building_height
+          under_layer = building_height - pole_size
+
+          "From the main floor, the fire pole is #{under_layer} feet underground."
+        else
+          "The size of the fire pole fits within the size of the building."
+        end
+      end
+    end
+  end
+
   module RankDialogue
     class SamosDialogue
       ## Theoretical, such as if someone became a diety.
@@ -3504,6 +4889,210 @@ module Sanos
 end
 
 module Chanos
+  module Cemota
+    class Objet
+      def self.fruit(nom_de_fruit)
+        nom_de_fruit
+      end
+
+      def self.legume(nom_de_legume)
+        nom_de_legume
+      end
+
+      def self.viande(nom_de_viande)
+        nom_de_viande
+      end
+
+      def self.chaussure(nom_de_chaussure)
+        nom_de_chaussure
+      end
+    end
+
+    class Sujet
+      def self.moi(directive)
+        "#{directive} moi."
+      end
+
+      def self.toi(directive)
+        "#{directive} toi."
+      end
+
+      def self.ils(directive)
+        "#{directive} ils."
+      end
+
+      def self.elles(directive)
+        "#{directive} elles."
+      end
+
+      def self.noi(directive)
+        "#{directive} noi."
+      end
+    end
+  end
+
+  module Numota
+    class Phrase
+      def self.express(objet, sujet, verbe)
+        "#{objet.downcase}_#{sujet.downcase}_#{verbe.downcase}"
+      end
+    end
+  end
+
+  module LType
+    class List
+      def self.assert(cemotu, numotu)
+        list_name = [ cemotu, numotu ]
+      end
+    end
+  end
+
+  module GameDevElements
+    class InputMechanics
+      def self.sangehommage(prompt)
+        print "#{prompt} "; read_line = gets.not_nil!.chomp
+      end
+
+      def self.parle_merci(prompt, output)
+        print "#{prompt} "; puts output
+      end
+    end
+  end
+
+  module HikasaAwasunu
+    class Mperiod
+      #######################################################################################
+      #                                    Medusahoseki                                     #
+      #######################################################################################
+      def self.proximity_de_medusahoseki(a, b)
+        maximum_distance     = b
+        distance_probability = a
+  
+        calculation = maximum_distance - ( maximum_distance * distance_probability )
+        calculation = calculation.round
+  
+        "Distance from Medusahoseki ( Medusa Gem ): #{calculation}"
+      end
+
+      def self.proximity_de_nemedusahoseki(a, b)
+        maximum_distance     = b
+        distance_probability = 1 - a
+  
+        calculation = maximum_distance - ( maximum_distance * distance_probability )
+        calculation = calculation.round
+  
+        "Distance from Nemedusahoseki ( Salamander Riding Goat ): #{calculation}"
+      end
+
+      def self.proximity_de_memorie(a)
+        year_period = 12
+  
+        calculation = 12 - ( 12 * a )
+        calculation = calculation.round
+  
+        "This memory was from a prior #{calculation} year period"
+      end
+
+      def self.mperiod_sprox(a, b)
+        "#{a} #{b.upcase}"
+      end
+
+      ################################################################################################
+      #                                         Use Case                                             #
+      ################################################################################################
+      # Suppose two people wanted to cover up two dead bodies: one is the dead girlfriend of the     #
+      # main character, the other is the brother whom murdered the girlfriends brother having        #
+      # placing his unconscious body in a rail road, so blood isn't on his hands.                    #
+      #                                                                                              #
+      # This aims to solve how you investigate a case where the reality of one victim is not         #
+      # and one of the victims doesn't actually exist. The other is not murdered directly by the     #
+      # perpetrator.                                                                                 #
+      ################################################################################################
+      def self.first_murder(victim_name, victim_method, case_status, victim_real)
+        "#{victim_name}, #{victim_method}, #{case_status}] REALITY: #{victim_real}"
+      end
+  
+      def self.second_murder(victim_name, victim_method, case_status, victim_real)
+        "#{victim_name}, #{victim_method}, #{case_status}] REALITY: #{victim_real}"
+      end
+	
+      def self.investigate_case(a1, a2, b1, b2, c1, c2)
+        2.times do
+          Obelisk::NeuroSymbolic::BasicML.get_statistics(a1, a2,
+                                                         b1, b2,
+                                                         c1, c2)
+      
+          Obelisk::NeuroSymbolic::BasicML.dynamic_mode_switcher
+
+          current_probability = File.read("data/statistics/probability/current_probability.txt").to_f
+          current_information = File.read("data/statistics/label/current_information.txt")
+
+          puts "#{current_information} #{current_probability}"
+        end
+      end
+
+      ########################################################################################
+      #                         Fueporu Et Perimetre De La Caverne                           #
+      ########################################################################################
+      # Evaluating the descrepancy between the height of the firepole and the height of the  #
+      # building to determine how much of the firepole in fact goes underground, and analyze #
+      # the cavern perimeter.                                                                #
+      ########################################################################################
+      def self.fueporu(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      # fagyka'u grana [ firepole ]
+      def self.fuegrana(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      def self.cavern_perimeter(pole_size, building_height)
+        if pole_size > building_height
+          under_layer = building_height - pole_size
+
+          "From the main floor, the fire pole is #{under_layer} feet underground."
+        else
+          "The size of the fire pole fits within the size of the building."
+        end
+      end
+    end
+  end
+
   module RankDialogue
     class ChanosDialogue
       ## Theoretical, such as if someone became a diety.
@@ -3588,6 +5177,210 @@ module Chanos
 end
 
 module Tunos
+  module Cemota
+    class Objet
+      def self.fruit(nom_de_fruit)
+        nom_de_fruit
+      end
+
+      def self.legume(nom_de_legume)
+        nom_de_legume
+      end
+
+      def self.viande(nom_de_viande)
+        nom_de_viande
+      end
+
+      def self.chaussure(nom_de_chaussure)
+        nom_de_chaussure
+      end
+    end
+
+    class Sujet
+      def self.moi(directive)
+        "#{directive} moi."
+      end
+
+      def self.toi(directive)
+        "#{directive} toi."
+      end
+
+      def self.ils(directive)
+        "#{directive} ils."
+      end
+
+      def self.elles(directive)
+        "#{directive} elles."
+      end
+
+      def self.noi(directive)
+        "#{directive} noi."
+      end
+    end
+  end
+
+  module Numota
+    class Phrase
+      def self.express(objet, sujet, verbe)
+        "#{objet.downcase}_#{sujet.downcase}_#{verbe.downcase}"
+      end
+    end
+  end
+
+  module LType
+    class List
+      def self.assert(cemotu, numotu)
+        list_name = [ cemotu, numotu ]
+      end
+    end
+  end
+
+  module GameDevElements
+    class InputMechanics
+      def self.sangehommage(prompt)
+        print "#{prompt} "; read_line = gets.not_nil!.chomp
+      end
+
+      def self.parle_merci(prompt, output)
+        print "#{prompt} "; puts output
+      end
+    end
+  end
+
+  module HikasaAwasunu
+    class Mperiod
+      #######################################################################################
+      #                                    Medusahoseki                                     #
+      #######################################################################################
+      def self.proximity_de_medusahoseki(a, b)
+        maximum_distance     = b
+        distance_probability = a
+  
+        calculation = maximum_distance - ( maximum_distance * distance_probability )
+        calculation = calculation.round
+  
+        "Distance from Medusahoseki ( Medusa Gem ): #{calculation}"
+      end
+
+      def self.proximity_de_nemedusahoseki(a, b)
+        maximum_distance     = b
+        distance_probability = 1 - a
+  
+        calculation = maximum_distance - ( maximum_distance * distance_probability )
+        calculation = calculation.round
+  
+        "Distance from Nemedusahoseki ( Salamander Riding Goat ): #{calculation}"
+      end
+
+      def self.proximity_de_memorie(a)
+        year_period = 12
+  
+        calculation = 12 - ( 12 * a )
+        calculation = calculation.round
+  
+        "This memory was from a prior #{calculation} year period"
+      end
+
+      def self.mperiod_sprox(a, b)
+        "#{a} #{b.upcase}"
+      end
+
+      ################################################################################################
+      #                                         Use Case                                             #
+      ################################################################################################
+      # Suppose two people wanted to cover up two dead bodies: one is the dead girlfriend of the     #
+      # main character, the other is the brother whom murdered the girlfriends brother having        #
+      # placing his unconscious body in a rail road, so blood isn't on his hands.                    #
+      #                                                                                              #
+      # This aims to solve how you investigate a case where the reality of one victim is not         #
+      # and one of the victims doesn't actually exist. The other is not murdered directly by the     #
+      # perpetrator.                                                                                 #
+      ################################################################################################
+      def self.first_murder(victim_name, victim_method, case_status, victim_real)
+        "#{victim_name}, #{victim_method}, #{case_status}] REALITY: #{victim_real}"
+      end
+  
+      def self.second_murder(victim_name, victim_method, case_status, victim_real)
+        "#{victim_name}, #{victim_method}, #{case_status}] REALITY: #{victim_real}"
+      end
+	
+      def self.investigate_case(a1, a2, b1, b2, c1, c2)
+        2.times do
+          Obelisk::NeuroSymbolic::BasicML.get_statistics(a1, a2,
+                                                         b1, b2,
+                                                         c1, c2)
+      
+          Obelisk::NeuroSymbolic::BasicML.dynamic_mode_switcher
+
+          current_probability = File.read("data/statistics/probability/current_probability.txt").to_f
+          current_information = File.read("data/statistics/label/current_information.txt")
+
+          puts "#{current_information} #{current_probability}"
+        end
+      end
+
+      ########################################################################################
+      #                         Fueporu Et Perimetre De La Caverne                           #
+      ########################################################################################
+      # Evaluating the descrepancy between the height of the firepole and the height of the  #
+      # building to determine how much of the firepole in fact goes underground, and analyze #
+      # the cavern perimeter.                                                                #
+      ########################################################################################
+      def self.fueporu(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      # fagyka'u grana [ firepole ]
+      def self.fuegrana(location_x, location_y, location_z, height_drop)
+        location_x  = location_x.to_i
+        location_y  = location_y.to_i
+        location_z  = location_z.to_i
+        height_drop = height_drop.to_i
+
+        average_height       = 20
+  
+        if    height_drop > average_height
+          percentage = average_height / height_drop
+  
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Average height is #{percentage} of height drop at #{height_drop} feet.' ],"
+        elsif height_drop < average_height
+          percentage = height_drop / average_height
+
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop is #{percentage} percentage of average height in #{average_height} feet' ],"
+        else
+          "[ :le_feuporu, #{location_x}, #{location_y}, #{location_z}, 'Height Drop and Average Height is of the same height.' ],"
+        end
+      end
+
+      def self.cavern_perimeter(pole_size, building_height)
+        if pole_size > building_height
+          under_layer = building_height - pole_size
+
+          "From the main floor, the fire pole is #{under_layer} feet underground."
+        else
+          "The size of the fire pole fits within the size of the building."
+        end
+      end
+    end
+  end
+
   module RankDialogue
     class TunosDialogue
       ## Theoretical, such as if someone became a diety.
@@ -3672,6 +5465,8 @@ module Tunos
 end
 
 module Kunos
+  # Needs a formal way of Generating data and user strings.
+
   module RankDialogue
     class KunosDialogue
       ## Theoretical, such as if someone became a diety.
@@ -5185,6 +6980,20 @@ def from_script
           ne(parsed_tokens[1], parsed_tokens[2])
         elsif parsed_tokens[0] == "mais"
           mais(parsed_tokens[1], parsed_tokens[2])
+        elsif parsed_tokens[0] == "gal"
+
+          # Scaffold Size
+          scaffold_height = parsed_tokens[1].to_i
+          scaffold_width  = parsed_tokens[2].to_i
+          scaffold_depth  = parsed_tokens[3].to_i
+
+          # Rope Metrics
+          rope_length     = parsed_tokens[3].to_i
+          rope_width      = parsed_tokens[4].to_i
+          rope_tensil     = parsed_tokens[5].to_i
+
+          gallows(scaffold_height, scaffold_width, scaffold_depth,
+                  rope_length,     rope_width,     rope_tensil)
         elsif parsed_tokens[0] == "cfs"
           print counterfact_selection(parsed_tokens[1], parsed_tokens[2], parsed_tokens[3], parsed_tokens[4], parsed_tokens[5], parsed_tokens[6])
           puts " "
@@ -5320,7 +7129,7 @@ def repl
   end
 end
 
-def generate_interpreter
+def generate_repl
   awasunu = %{
 #################################################################################
 #                                     REPL                                      #
@@ -5329,6 +7138,9 @@ def generate_interpreter
 # phased out for the reading from a script.                                     #
 #################################################################################
 def repl
+  system("clear")
+  puts "Welcome to Nuerisupu, compiled on Linux using Crystal."
+
   loop do
     print " >>> "; dispatcher = gets.chomp
 
@@ -5337,30 +7149,33 @@ def repl
     dispatcher = dispatcher.tr %Q("), %Q()
     dispatcher = dispatcher.split(" ")
 
-    if    dispatcher[0] == "arc"
-      hairbows(dispatcher[1], dispatcher[2], dispatcher[3])
-    elsif dispatcher[0] == "cor"
-      corsets(dispatcher[1], dispatcher[2], dispatcher[3])
-    elsif dispatcher[0] == "jup"
-      skirts(dispatcher[1], dispatcher[2], dispatcher[3])
-    elsif dispatcher[0] == "bas"
-      stocking(dispatcher[1], dispatcher[2], dispatcher[3])
-    elsif dispatcher[0] == "sab"
-      clogs(dispatcher[1], dispatcher[2], dispatcher[3])
-    elsif dispatcher[0] == "srg"
-      soap_region(dispatcher[1], dispatcher[2], dispatcher[3])
-    elsif dispatcher[0] == "pol"
-      chicken_breed(dispatcher[1], dispatcher[2], dispatcher[3])
-    elsif dispatcher[0] == "pom"
-      feed_chicken(dispatcher[1], dispatcher[2], dispatcher[3])
-    elsif dispatcher[0] == "rty"
-      stone_type(dispenser[1], dispatcher[2], dispatcher[3], dispatcher[4])
-    elsif dispatcher[0] == "cus"
-      puts curse_status(dispatcher[1], dispatcher[2])
-    elsif dispatcher[0] == "ach"
-      puts purchase_status(dispatcher[1], dispatcher[2], dispatcher[3], dispatcher[4])
-    elsif dispatcher[0] == "cfs"
-      print counterfact_selection(dispatcher[1], dispatcher[2], dispatcher[3], dispatcher[4], dispatcher[5], dispatcher[6])
+    ## Basic Mechanics
+    if    dispatcher[0] == "enc"
+      encrire(dispatcher[1])
+    elsif dispatcher[0] == "elg"
+      encrireln(dispatcher[1])
+    elsif dispatcher[0] == "nai"
+      encrire(nai(dispatcher[1], dispatcher[2]))
+    elsif dispatcher[0] == "shikashi"
+      encrire(shikashi(dispatcher[1])
+    elsif dispatcher[0] == "ne"
+      encrire(nai(dispatcher[1], dispatcher[2]))
+    elsif dispatcher[0] == "mais"
+      encrireln(nai(dispatcher[1]))
+
+    ## Complex Mechanics
+    elsif dispatcher[0] == "ccf"
+      get_radius           = dispatcher[0].to_i
+      circumference_values = calculate_circumference(get_radius)
+
+      canon_power       = dispatcher[1].to_i
+      established_canon = dispatcher[2]
+      counterfactual    = dispatcher[3]
+
+      encrire(asoka(circumference_values[2], calculate_depth(circumference_values[2], 6), canon_power, established_canon, counterfactual))
+      encrireln(" ")
+
+    ## Clearing screen and exiting the system.
     elsif dispatcher[0] == "vio"
       system("clear")
     elsif dispatcher[0] == "ext"
@@ -5372,5 +7187,7 @@ def repl
 end
   }
 
-  puts awasunu
+  File.open("nuerisupu.cr", "w") { |f|
+    f.puts awasunu
+  }
 end
