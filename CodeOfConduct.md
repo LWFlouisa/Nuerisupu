@@ -1,7 +1,7 @@
 ## Code Of Conduct
 Do Not Assume because we met before that you have permission to change or alter my software if you're not part of my open source team. Or change features without consulting me.
 
-<b>Intellectual Property</b> Do not submit AI Slop as contributions, or steal from other developers when submitting code. This includes stealing my webcomic assets to sell them back to me.
+<b>Intellectual Property</b> Do not submit AI Slop as contributions, or steal from other developers when submitting code in pull requests or in the issues panel. Or any other format where user-submissions are taken. This includes stealing my webcomic assets to sell them back to me.
 
 <b>Training NPCs and Enemies in Roguelike games</b> This tool keeps AI models sandboxed and bounded, do not use this for training uncontained real world systems.
 
