@@ -1,6 +1,11 @@
 ## Nuerisupu
 An early prototype of a French-Syntax language for my Science Fiction setting. You can view this for scripting languages, what Esperanto is to conlangs. A language that learns its own intermediate representation and feeding it back into its own intermediate representation generations.
 
+## Using CState
+This is a work in progress for showing how aspects of my language would work in my own games.
+
+[Priority Turn Order](https://github.com/LWFlouisa/PriorityTurnOrder/tree/main)
+
 ## Greeter
 This is a greeter script.
 
