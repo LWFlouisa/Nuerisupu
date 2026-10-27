@@ -6,6 +6,11 @@ This is a work in progress for showing how aspects of my language would work in 
 
 [Priority Turn Order](https://github.com/LWFlouisa/PriorityTurnOrder/tree/main)
 
+## Example Scripts
+These break down into various categories I'm fleshing out:
+
+[Nuescript Examples](https://github.com/LWFlouisa/Nuescript)
+
 ## Greeter
 This is a greeter script.
 
