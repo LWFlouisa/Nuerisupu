@@ -1,5 +1,5 @@
 ## Nuerisupu
-An early prototype of a French-Syntax language for my Science Fiction setting. You can view this for scripting languages, what Esperanto is to conlangs.
+An early prototype of a French-Syntax language for my Science Fiction setting. You can view this for scripting languages, what Esperanto is to conlangs. A language that learns its own intermediate representation and feeding it back into its own intermediate representation generations.
 
 ## Greeter
 This is a greeter script.
