@@ -7,6 +7,462 @@
 # AI models.                                                                                                #
 #############################################################################################################
 module Obelisk
+  module DesoYokasovonos
+    class LanguageGenerator
+      def self.ahuzacos
+        word_classes = [[
+          [
+            [["Le",  "Le"], ["Le",  "La"], ["Le",  "Les"]],
+            [["La",  "Le"], ["La",  "La"], ["La",  "Les"]],
+            [["Les", "Le"], ["Les", "La"], ["Les", "Les"]],
+          ], [
+            [["Anu",  "Anu"], ["Anu",  "Ana"], ["Anu",  "Anos"]],
+            [["Ana",  "Anu"], ["Ana",  "Ana"], ["Ana",  "Anos"]],
+            [["Anos", "Anu"], ["Anos", "Ana"], ["Anos", "Anus"]],
+          ], [
+            [["Lanu",  "Lanu"], ["Lanu",  "Lana"], ["Lanu",  "Lanos"]],
+            [["Lana",  "Lanu"], ["Lana",  "Lana"], ["Lana",  "Lanos"]],
+            [["Lanos", "Lanu"], ["Lanos", "Lana"], ["Lanos", "Lanos"]],
+          ],
+        ], [
+          [
+            [["El",  "El"], ["El",  "Al"], ["El",  "Els"]],
+            [["Al",  "El"], ["Al",  "Al"], ["Al",  "Els"]],
+            [["Els", "El"], ["Els", "Al"], ["Els", "Els"]],
+          ], [
+            [["Nua",  "Naa"], ["Nua",  "Naa"], ["Nua",  "Nosa"]],
+            [["Naa",  "Naa"], ["Naa",  "Naa"], ["Naa",  "Nosa"]],
+            [["Nosa", "Naa"], ["Nosa", "Naa"], ["Nosa", "Nosa"]],
+          ], [
+            [["Nula",  "Nula"], ["Nula",  "Nala"], ["Nula",  "Nosal"]],
+            [["Nala",  "Nula"], ["Nala",  "Nala"], ["Nala",  "Nosal"]],
+            [["Nosal", "Nula"], ["Nosal", "Nala"], ["Nosal", "Nosal"]],
+          ],
+        ]]
+
+        context_window = [0, 1, 2]
+        row_options    = [0, 1, 2]
+        col_options    = [0, 1, 2]
+        arr_options    = [0, 1]
+
+        # Modifies word genders based on sanity state.
+        current_sanity  = File.read("_data/npc/dialogue/sanity.txt").to_i
+
+        cur_con = context_window.sample
+        cur_row =    row_options.sample
+        cur_col =    col_options.sample
+        cur_arr =    arr_options.sample
+
+        chosen_word_class = word_classes[current_sanity][cur_con][cur_row][cur_col][cur_arr]
+
+        ## This covers the generation of classified nouns.
+        ho   = ["homme",      "ommehay"]
+        fe   = ["femme",      "emmefay"]
+        fi   = ["fille",      "illefay"]
+        ga   = ["garcon",        "arcongay"]
+        ta   = ["tante",      "antetay"]
+        oj   = ["oncle",      "cleoney"]
+        cofi = ["cousinfille",   "ousincay illefay"]
+        coga = ["cousingarcon", "ousincay arcongay"]
+        grm  = [ "grandmere",  "randgay eremay"]
+        grp  = [ "grandpere",  "randgay erepay"]
+
+        ct   = [    "chat",  "atchay"]
+        ch   = [   "chien",     "ienchay"]
+        oi   = [  "oiseau",    "seauoiay"]
+        gr   = [  "souris",     "ourisay"]
+        ou   = [    "ours",  "ursoay"]
+        wo   = [ "orgueil",   "gueiloray"]
+        pr   = ["ostritch", "ritchostray"]
+        po   = [  "jiraff",    "iraffjay"]
+        pi   = ["écureuil",  "ureuilecay"]
+
+        m    = ["maison", "aisonmay"]
+        c    = [ "cabin",  "abincay"]
+        e    = [ "ecole",   "coleay"]
+
+        oju  = [   "ojijaku",    "jijakuoay"]
+        neo  = ["ne ojijaku", "ne jijakuoay"]
+
+        nouns_sanity = [[
+          [[ho[0],   ho[0]], [ho[0],   fe[0]], [ho[0],   fi[0]], [ho[0],   ga[0]], [ho[0],   ta[0]], [ho[0],   oj[0]], [ho[0],   cofi[0]], [ho[0],   coga[0]], [ho[0],   grm[0]], [ho[0],   grp[0]]],
+          [[fe[0],   ho[0]], [fe[0],   fe[0]], [fe[0],   fi[0]], [fe[0],   ga[0]], [fe[0],   ta[0]], [fe[0],   oj[0]], [fe[0],   cofi[0]], [fe[0],   coga[0]], [fe[0],   grm[0]], [fe[0],   grp[0]]],
+          [[fi[0],   ho[0]], [fi[0],   fe[0]], [fi[0],   fi[0]], [fi[0],   ga[0]], [fi[0],   ta[0]], [fi[0],   oj[0]], [fi[0],   cofi[0]], [fi[0],   coga[0]], [fi[0],   grm[0]], [fi[0],   grp[0]]],
+          [[ga[0],   ho[0]], [ga[0],   fe[0]], [ga[0],   fi[0]], [ga[0],   ga[0]], [ga[0],   ta[0]], [ga[0],   oj[0]], [ga[0],   cofi[0]], [ga[0],   coga[0]], [ga[0],   grm[0]], [ga[0],   grp[0]]],
+          [[ta[0],   ho[0]], [ta[0],   fe[0]], [ta[0],   fi[0]], [ta[0],   ga[0]], [ta[0],   ta[0]], [ta[0],   oj[0]], [ta[0],   cofi[0]], [ta[0],   coga[0]], [ta[0],   grm[0]], [ta[0],   grp[0]]],
+          [[oj[0],   ho[0]], [oj[0],   fe[0]], [oj[0],   fi[0]], [oj[0],   ga[0]], [oj[0],   ta[0]], [oj[0],   oj[0]], [oj[0],   cofi[0]], [oj[0],   coga[0]], [oj[0],   grm[0]], [oj[0],   grp[0]]],
+          [[cofi[0], ho[0]], [cofi[0], fe[0]], [cofi[0], fi[0]], [cofi[0], ga[0]], [cofi[0], ta[0]], [cofi[0], oj[0]], [cofi[0], cofi[0]], [cofi[0], coga[0]], [cofi[0], grm[0]], [cofi[0], grp[0]]],
+          [[coga[0], ho[0]], [coga[0], fe[0]], [coga[0], fi[0]], [coga[0], ga[0]], [coga[0], ta[0]], [coga[0], oj[0]], [coga[0], cofi[0]], [coga[0], coga[0]], [coga[0], grm[0]], [coga[0], grp[0]]],
+          [[grm[0],  ho[0]], [grm[0],  fe[0]], [grm[0],  fi[0]], [grm[0],  ga[0]], [grm[0],  ta[0]], [grm[0],  oj[0]], [grm[0],  cofi[0]], [grm[0],  coga[0]], [grm[0],  grm[0]], [grm[0],  grp[0]]],
+          [[grp[0],  ho[0]], [grp[0],  fe[0]], [grp[0],  fi[0]], [grp[0],  ga[0]], [grp[0],  ta[0]], [grp[0],  oj[0]], [grp[0],  cofi[0]], [grp[0],  coga[0]], [grp[0],  grm[0]], [grp[0],  grp[0]]],
+        ], [
+          [[ct[0], ct[0]], [ct[0], ch[0]], [ct[0], oi[0]], [ct[0], gr[0]], [ct[0], wo[0]], [ct[0], ou[0]], [ct[0], pr[0]], [ct[0], po[0]]],
+          [[ch[0], ct[0]], [ch[0], ch[0]], [ch[0], oi[0]], [ch[0], gr[0]], [ch[0], wo[0]], [ch[0], ou[0]], [ch[0], pr[0]], [ch[0], po[0]]],
+          [[oi[0], ct[0]], [oi[0], ch[0]], [oi[0], oi[0]], [pi[0], gr[0]], [oi[0], wo[0]], [oi[0], ou[0]], [oi[0], pr[0]], [oi[0], po[0]]],
+          [[gr[0], ct[0]], [gr[0], ch[0]], [gr[0], oi[0]], [gr[0], gr[0]], [gr[0], wo[0]], [gr[0], ou[0]], [gr[0], pr[0]], [gr[0], po[0]]],
+        ], [
+          [[m[0], m[0]], [m[0], c[0]], [m[0], e[0]]],
+          [[c[0], m[0]], [c[0], c[0]], [c[0], e[0]]],
+          [[e[0], m[0]], [e[0], c[0]], [e[0], e[0]]],
+        ], [
+          [[oju[0], oju[0]], [oju[0], neo[0]]],
+          [[neo[0], oju[0]], [neo[0], neo[0]]],
+        ]]
+
+        nouns_insanity = [[
+          [[ho[1],   ho[1]], [ho[1],   fe[1]], [ho[1],   fi[1]], [ho[1],   ga[1]], [ho[1],   ta[1]], [ho[1],   oj[1]], [ho[1],   cofi[1]], [ho[1],   coga[1]], [ho[1],   grm[1]], [ho[1],   grp[1]]],
+          [[fe[1],   ho[1]], [fe[1],   fe[1]], [fe[1],   fi[1]], [fe[1],   ga[1]], [fe[1],   ta[1]], [fe[1],   oj[1]], [fe[1],   cofi[1]], [fe[1],   coga[1]], [fe[1],   grm[1]], [fe[1],   grp[1]]],
+          [[fi[1],   ho[1]], [fi[1],   fe[1]], [fi[1],   fi[1]], [fi[1],   ga[1]], [fi[1],   ta[1]], [fi[1],   oj[1]], [fi[1],   cofi[1]], [fi[1],   coga[1]], [fi[1],   grm[1]], [fi[1],   grp[1]]],
+          [[ga[1],   ho[1]], [ga[1],   fe[1]], [ga[1],   fi[1]], [ga[1],   ga[1]], [ga[1],   ta[1]], [ga[1],   oj[1]], [ga[1],   cofi[1]], [ga[1],   coga[1]], [ga[1],   grm[1]], [ga[1],   grp[1]]],
+          [[ta[1],   ho[1]], [ta[1],   fe[1]], [ta[1],   fi[1]], [ta[1],   ga[1]], [ta[1],   ta[1]], [ta[1],   oj[1]], [ta[1],   cofi[1]], [ta[1],   coga[1]], [ta[1],   grm[1]], [ta[1],   grp[1]]],
+          [[oj[1],   ho[1]], [oj[1],   fe[1]], [oj[1],   fi[1]], [oj[1],   ga[1]], [oj[1],   ta[1]], [oj[1],   oj[1]], [oj[1],   cofi[1]], [oj[1],   coga[1]], [oj[1],   grm[1]], [oj[1],   grp[1]]],
+          [[cofi[1], ho[1]], [cofi[1], fe[1]], [cofi[1], fi[1]], [cofi[1], ga[1]], [cofi[1], ta[1]], [cofi[1], oj[1]], [cofi[1], cofi[1]], [cofi[1], coga[1]], [cofi[1], grm[1]], [cofi[1], grp[1]]],
+          [[coga[1], ho[1]], [coga[1], fe[1]], [coga[1], fi[1]], [coga[1], ga[1]], [coga[1], ta[1]], [coga[1], oj[1]], [coga[1], cofi[1]], [coga[1], coga[1]], [coga[1], grm[1]], [coga[1], grp[1]]],
+          [[grm[1],  ho[1]], [grm[1],  fe[1]], [grm[1],  fi[1]], [grm[1],  ga[1]], [grm[1],  ta[1]], [grm[1],  oj[1]], [grm[1],  cofi[1]], [grm[1],  coga[1]], [grm[1],  grm[1]], [grm[1],  grp[1]]],
+          [[grp[1],  ho[1]], [grp[1],  fe[1]], [grp[1],  fi[1]], [grp[1],  ga[1]], [grp[1],  ta[1]], [grp[1],  oj[1]], [grp[1],  cofi[1]], [grp[1],  coga[1]], [grp[1],  grm[1]], [grp[1],  grp[1]]],
+        ], [
+          [[ct[1], ct[1]], [ct[1], ch[1]], [ct[1], oi[1]], [ct[1], gr[1]], [ct[1], wo[1]], [ct[1], ou[1]], [ct[1], pr[1]], [ct[1], po[1]]],
+          [[ch[1], ct[1]], [ch[1], ch[1]], [ch[1], oi[1]], [ch[1], gr[1]], [ch[1], wo[1]], [ch[1], ou[1]], [ch[1], pr[1]], [ch[1], po[1]]],
+          [[oi[1], ct[1]], [oi[1], ch[1]], [oi[1], oi[1]], [pi[1], gr[1]], [oi[1], wo[1]], [oi[1], ou[1]], [oi[1], pr[1]], [oi[1], po[1]]],
+          [[gr[1], ct[1]], [gr[1], ch[1]], [gr[1], oi[1]], [gr[1], gr[1]], [gr[1], wo[1]], [gr[1], ou[1]], [gr[1], pr[1]], [gr[1], po[1]]],
+        ], [
+          [[m[1], m[1]], [m[1], c[1]], [m[1], e[1]]],
+          [[c[1], m[1]], [c[1], c[1]], [c[1], e[1]]],
+          [[e[1], m[1]], [e[1], c[1]], [e[1], e[1]]],
+        ], [
+          [[oju[1], oju[1]], [oju[1], neo[1]]],
+          [[neo[1], oju[1]], [neo[1], neo[1]]],
+        ]]
+
+        nouns       = [nouns_sanity, nouns_insanity]
+        current_sanity  = File.read("_data/npc/dialogue/sanity.txt").to_i # sanity_context.sample
+
+        context_window = [0, 1, 2, 3]
+        cur_con    = context_window.sample
+
+        if    cur_con == 0
+          row_options    = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+          col_options    = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+          arr_options    = [0, 1]
+
+          #cur_con = context_window.sample
+          cur_row =    row_options.sample
+          cur_col =    col_options.sample
+          cur_arr =    arr_options.sample
+
+          chosen_noun = nouns[current_sanity][cur_con][cur_row][cur_col][cur_arr]  
+        elsif cur_con == 1
+          row_options    = [0, 1, 2, 3]
+          col_options    = [0, 1, 2, 3]
+          arr_options    = [0, 1]
+
+          #cur_con = context_window.sample
+          cur_row =    row_options.sample
+          cur_col =    col_options.sample
+          cur_arr =    arr_options.sample
+
+          chosen_noun = nouns[current_sanity][cur_con][cur_row][cur_col][cur_arr]
+        elsif cur_con == 2
+          row_options    = [0, 1, 2]
+          col_options    = [0, 1, 2]
+          arr_options    = [0, 1]
+
+          #cur_con = context_window.sample
+          cur_row =    row_options.sample
+          cur_col =    col_options.sample
+          cur_arr =    arr_options.sample
+
+          chosen_noun = nouns[current_sanity][cur_con][cur_row][cur_col][cur_arr]
+        elsif cur_con == 3
+          row_options    = [0, 1]
+          col_options    = [0, 1]
+          arr_options    = [0, 1]
+
+          #cur_con = context_window.sample
+          cur_row =    row_options.sample
+          cur_col =    col_options.sample
+          cur_arr =    arr_options.sample
+
+          chosen_noun = nouns[current_sanity][cur_con][cur_row][cur_col][cur_arr]
+        end
+
+        ## This covers the adjectives that follows the nouns.
+        t  = ["tsin",           "sintway"]
+        p  = ["petite",        "etitepay"]
+        s1 = ["sucré",          "ucrepay"]
+        r  = ["roudy",          "oudyray"]
+        l  = ["léducation", "ducationley"]
+        s2 = ["sages",           "agesay"]
+
+        adjectives_sanity = [[
+          [[t[0],  t[0]], [t[0],  p[0]], [t[0],  s1[0]], [t[0],  r[0]], [t[0],  l[0]], [t[0],  s2[0]]],
+          [[p[0],  t[0]], [p[0],  p[0]], [p[0],  s1[0]], [p[0],  r[0]], [p[0],  l[0]], [p[0],  s2[0]]],
+          [[s1[0], t[0]], [s1[0], p[0]], [s1[0], s1[0]], [s1[0], r[0]], [s1[0], l[0]], [s1[0], s2[0]]],
+          [[r[0],  t[0]], [r[0],  p[0]], [r[0],  s1[0]], [r[0],  r[0]], [r[0],  l[0]], [r[0],  s2[0]]],
+          [[l[0],  t[0]], [l[0],  p[0]], [l[0],  s1[0]], [l[0],  r[0]], [l[0],  l[0]], [l[0],  s2[0]]],
+          [[s2[0], t[0]], [s2[0], p[0]], [s2[0], s1[0]], [s2[0], r[0]], [s2[0], l[0]], [s2[0], s2[0]]],
+        ], [
+          [[p[0],  t[0]], [p[0],  p[0]], [p[0],  s1[0]], [p[0],  r[0]], [p[0],  l[0]], [p[0],  s2[0]]],
+          [[s1[0], t[0]], [s1[0], p[0]], [s1[0], s1[0]], [s1[0], r[0]], [s1[0], l[0]], [s1[0], s2[0]]],
+          [[r[0],  t[0]], [r[0],  p[0]], [r[0],  s1[0]], [r[0],  r[0]], [r[0],  l[0]], [r[0],  s2[0]]],
+          [[l[0],  t[0]], [l[0],  p[0]], [l[0],  s1[0]], [l[0],  r[0]], [l[0],  l[0]], [l[0],  s2[0]]],
+          [[s2[0], t[0]], [s2[0], p[0]], [s2[0], s1[0]], [s2[0], r[0]], [s2[0], l[0]], [s2[0], s2[0]]],
+          [[t[0],  t[0]], [t[0],  p[0]], [t[0],  s1[0]], [t[0],  r[0]], [t[0],  l[0]], [t[0],  s2[0]]],
+        ], [
+          [[s1[0], t[0]], [s1[0], p[0]], [s1[0], s1[0]], [s1[0], r[0]], [s1[0], l[0]], [s1[0], s2[0]]],
+          [[r[0],  t[0]], [r[0],  p[0]], [r[0],  s1[0]], [r[0],  r[0]], [r[0],  l[0]], [r[0],  s2[0]]],
+          [[l[0],  t[0]], [l[0],  p[0]], [l[0],  s1[0]], [l[0],  r[0]], [l[0],  l[0]], [l[0],  s2[0]]],
+          [[s2[0], t[0]], [s2[0], p[0]], [s2[0], s1[0]], [s2[0], r[0]], [s2[0], l[0]], [s2[0], s2[0]]],
+          [[t[0],  t[0]], [t[0],  p[0]], [t[0],  s1[0]], [t[0],  r[0]], [t[0],  l[0]], [t[0],  s2[0]]],
+          [[p[0],  t[0]], [p[0],  p[0]], [p[0],  s1[0]], [p[0],  r[0]], [p[0],  l[0]], [p[0],  s2[0]]],
+        ], [
+          [[r[0],  t[0]], [r[0],  p[0]], [r[0],  s1[0]], [r[0],  r[0]], [r[0],  l[0]], [r[0],  s2[0]]],
+          [[l[0],  t[0]], [l[0],  p[0]], [l[0],  s1[0]], [l[0],  r[0]], [l[0],  l[0]], [l[0],  s2[0]]],
+          [[s2[0], t[0]], [s2[0], p[0]], [s2[0], s1[0]], [s2[0], r[0]], [s2[0], l[0]], [s2[0], s2[0]]],
+          [[t[0],  t[0]], [t[0],  p[0]], [t[0],  s1[0]], [t[0],  r[0]], [t[0],  l[0]], [t[0],  s2[0]]],
+          [[p[0],  t[0]], [p[0],  p[0]], [p[0],  s1[0]], [p[0],  r[0]], [p[0],  l[0]], [p[0],  s2[0]]],
+          [[s1[0], t[0]], [s1[0], p[0]], [s1[0], s1[0]], [s1[0], r[0]], [s1[0], l[0]], [s1[0], s2[0]]],
+        ], [
+          [[l[0],  t[0]], [l[0],  p[0]], [l[0],  s1[0]], [l[0],  r[0]], [l[0],  l[0]], [l[0],  s2[0]]],
+          [[s2[0], t[0]], [s2[0], p[0]], [s2[0], s1[0]], [s2[0], r[0]], [s2[0], l[0]], [s2[0], s2[0]]],
+          [[t[0],  t[0]], [t[0],  p[0]], [t[0],  s1[0]], [t[0],  r[0]], [t[0],  l[0]], [t[0],  s2[0]]],
+          [[p[0],  t[0]], [p[0],  p[0]], [p[0],  s1[0]], [p[0],  r[0]], [p[0],  l[0]], [p[0],  s2[0]]],
+          [[s1[0], t[0]], [s1[0], p[0]], [s1[0], s1[0]], [s1[0], r[0]], [s1[0], l[0]], [s1[0], s2[0]]],
+          [[r[0],  t[0]], [r[0],  p[0]], [r[0],  s1[0]], [r[0],  r[0]], [r[0],  l[0]], [r[0],  s2[0]]],
+        ], [
+          [[s2[0], t[0]], [s2[0], p[0]], [s2[0], s1[0]], [s2[0], r[0]], [s2[0], l[0]], [s2[0], s2[0]]],
+          [[t[0],  t[0]], [t[0],  p[0]], [t[0],  s1[0]], [t[0],  r[0]], [t[0],  l[0]], [t[0],  s2[0]]],
+          [[p[0],  t[0]], [p[0],  p[0]], [p[0],  s1[0]], [p[0],  r[0]], [p[0],  l[0]], [p[0],  s2[0]]],
+          [[s1[0], t[0]], [s1[0], p[0]], [s1[0], s1[0]], [s1[0], r[0]], [s1[0], l[0]], [s1[0], s2[0]]],
+          [[r[0],  t[0]], [r[0],  p[0]], [r[0],  s1[0]], [r[0],  r[0]], [r[0],  l[0]], [r[0],  s2[0]]],
+          [[l[0],  t[0]], [l[0],  p[0]], [l[0],  s1[0]], [l[0],  r[0]], [l[0],  l[0]], [l[0],  s2[0]]],
+        ]]
+
+        adjectives_insanity = [[
+          [[t[1],  t[1]], [t[1],  p[1]], [t[1],  s1[1]], [t[1],  r[1]], [t[1],  l[1]], [t[1],  s2[1]]],
+          [[p[1],  t[1]], [p[1],  p[1]], [p[1],  s1[1]], [p[1],  r[1]], [p[1],  l[1]], [p[1],  s2[1]]],
+          [[s1[1], t[1]], [s1[1], p[1]], [s1[1], s1[1]], [s1[1], r[1]], [s1[1], l[1]], [s1[1], s2[1]]],
+          [[r[1],  t[1]], [r[1],  p[1]], [r[1],  s1[1]], [r[1],  r[1]], [r[1],  l[1]], [r[1],  s2[1]]],
+          [[l[1],  t[1]], [l[1],  p[1]], [l[1],  s1[1]], [l[1],  r[1]], [l[1],  l[1]], [l[1],  s2[1]]],
+          [[s2[1], t[1]], [s2[1], p[1]], [s2[1], s1[1]], [s2[1], r[1]], [s2[1], l[1]], [s2[1], s2[1]]],
+        ], [
+          [[p[1],  t[1]], [p[1],  p[1]], [p[1],  s1[1]], [p[1],  r[1]], [p[1],  l[1]], [p[1],  s2[1]]],
+          [[s1[1], t[1]], [s1[1], p[1]], [s1[1], s1[1]], [s1[1], r[1]], [s1[1], l[1]], [s1[1], s2[1]]],
+          [[r[1],  t[1]], [r[1],  p[1]], [r[1],  s1[1]], [r[1],  r[1]], [r[1],  l[1]], [r[1],  s2[1]]],
+          [[l[1],  t[1]], [l[1],  p[1]], [l[1],  s1[1]], [l[1],  r[1]], [l[1],  l[1]], [l[1],  s2[1]]],
+          [[s2[1], t[1]], [s2[1], p[1]], [s2[1], s1[1]], [s2[1], r[1]], [s2[1], l[1]], [s2[1], s2[1]]],
+          [[t[1],  t[1]], [t[1],  p[1]], [t[1],  s1[1]], [t[1],  r[1]], [t[1],  l[1]], [t[1],  s2[1]]],
+        ], [
+          [[s1[1], t[1]], [s1[1], p[1]], [s1[1], s1[1]], [s1[1], r[1]], [s1[1], l[1]], [s1[1], s2[1]]],
+          [[r[1],  t[1]], [r[1],  p[1]], [r[1],  s1[1]], [r[1],  r[1]], [r[1],  l[1]], [r[1],  s2[1]]],
+          [[l[1],  t[1]], [l[1],  p[1]], [l[1],  s1[1]], [l[1],  r[1]], [l[1],  l[1]], [l[1],  s2[1]]],
+          [[s2[1], t[1]], [s2[1], p[1]], [s2[1], s1[1]], [s2[1], r[1]], [s2[1], l[1]], [s2[1], s2[1]]],
+          [[t[1],  t[1]], [t[1],  p[1]], [t[1],  s1[1]], [t[1],  r[1]], [t[1],  l[1]], [t[1],  s2[1]]],
+          [[p[1],  t[1]], [p[1],  p[1]], [p[1],  s1[1]], [p[1],  r[1]], [p[1],  l[1]], [p[1],  s2[1]]],
+        ], [
+          [[r[1],  t[1]], [r[1],  p[1]], [r[1],  s1[1]], [r[1],  r[1]], [r[1],  l[1]], [r[1],  s2[1]]],
+          [[l[1],  t[1]], [l[1],  p[1]], [l[1],  s1[1]], [l[1],  r[1]], [l[1],  l[1]], [l[1],  s2[1]]],
+          [[s2[1], t[1]], [s2[1], p[1]], [s2[1], s1[1]], [s2[1], r[1]], [s2[1], l[1]], [s2[1], s2[1]]],
+          [[t[1],  t[1]], [t[1],  p[1]], [t[1],  s1[1]], [t[1],  r[1]], [t[1],  l[1]], [t[1],  s2[1]]],
+          [[p[1],  t[1]], [p[1],  p[1]], [p[1],  s1[1]], [p[1],  r[1]], [p[1],  l[1]], [p[1],  s2[1]]],
+          [[s1[1], t[1]], [s1[1], p[1]], [s1[1], s1[1]], [s1[1], r[1]], [s1[1], l[1]], [s1[1], s2[1]]],
+        ], [
+          [[l[1],  t[1]], [l[1],  p[1]], [l[1],  s1[1]], [l[1],  r[1]], [l[1],  l[1]], [l[1],  s2[1]]],
+          [[s2[1], t[1]], [s2[1], p[1]], [s2[1], s1[1]], [s2[1], r[1]], [s2[1], l[1]], [s2[1], s2[1]]],
+          [[t[1],  t[1]], [t[1],  p[1]], [t[1],  s1[1]], [t[1],  r[1]], [t[1],  l[1]], [t[1],  s2[1]]],
+          [[p[1],  t[1]], [p[1],  p[1]], [p[1],  s1[1]], [p[1],  r[1]], [p[1],  l[1]], [p[1],  s2[1]]],
+          [[s1[1], t[1]], [s1[1], p[1]], [s1[1], s1[1]], [s1[1], r[1]], [s1[1], l[1]], [s1[1], s2[1]]],
+          [[r[1],  t[1]], [r[1],  p[1]], [r[1],  s1[1]], [r[1],  r[1]], [r[1],  l[1]], [r[1],  s2[1]]],
+        ], [
+          [[s2[1], t[1]], [s2[1], p[1]], [s2[1], s1[1]], [s2[1], r[1]], [s2[1], l[1]], [s2[1], s2[1]]],
+          [[t[1],  t[1]], [t[1],  p[1]], [t[1],  s1[1]], [t[1],  r[1]], [t[1],  l[1]], [t[1],  s2[1]]],
+          [[p[1],  t[1]], [p[1],  p[1]], [p[1],  s1[1]], [p[1],  r[1]], [p[1],  l[1]], [p[1],  s2[1]]],
+          [[s1[1], t[1]], [s1[1], p[1]], [s1[1], s1[1]], [s1[1], r[1]], [s1[1], l[1]], [s1[1], s2[1]]],
+          [[r[1],  t[1]], [r[1],  p[1]], [r[1],  s1[1]], [r[1],  r[1]], [r[1],  l[1]], [r[1],  s2[1]]],
+          [[l[1],  t[1]], [l[1],  p[1]], [l[1],  s1[1]], [l[1],  r[1]], [l[1],  l[1]], [l[1],  s2[1]]],
+        ]]
+
+        adjectives = [ adjectives_sanity, adjectives_insanity ]
+
+        context_window = [0, 1, 2, 3, 4, 5]
+
+        row_options    = [0, 1, 2, 3, 4, 5]
+        col_options    = [0, 1, 2, 3, 4, 5]
+        arr_options    = [0, 1]
+
+        # Modifies word genders based on sanity state.
+        current_sanity  = File.read("_data/npc/dialogue/sanity.txt").to_i # sanity_context.sample
+
+        cur_con = context_window.sample
+        cur_row =    row_options.sample
+        cur_col =    col_options.sample
+        cur_arr =    arr_options.sample
+
+        chosen_adjective = adjectives[current_sanity][cur_con][cur_row][cur_col][cur_arr].strip
+
+        subjects = [[
+          [["es",    "es"], ["es",    "es ne"]],
+          [["es ne", "es"], ["es ne", "es ne"]],
+        ], [
+          [["es",    "es"], ["es",    "es ne"]],
+          [["es ne", "es"], ["es ne", "es ne"]],
+        ]]
+  
+        context_window = [0, 1]
+
+        row_options    = [0, 1]
+        col_options    = [0, 1]
+        arr_options    = [0, 1]
+
+        cur_con = context_window.sample
+        cur_row =    row_options.sample
+        cur_col =    col_options.sample
+        cur_arr =    arr_options.sample
+
+        chosen_subject = subjects[cur_con][cur_row][cur_col][cur_arr]
+
+        ## This covers the verbs that come before the adverbs.
+        avo = ["avoir",        "voiray"]
+        cou = ["coupe",       "oupecay"]
+        ser = ["serrure",       "erruresay"]
+        dev = ["deverrouillage", "everrouillageday"]
+
+        verbs_sanity = [[
+          [[avo[0], avo[0]], [avo[0], cou[0]], [avo[0], ser[0]], [avo[0], dev[0]]],
+          [[cou[0], avo[0]], [cou[0], cou[0]], [cou[0], ser[0]], [cou[0], dev[0]]],
+          [[ser[0], avo[0]], [ser[0], cou[0]], [ser[0], ser[0]], [ser[0], dev[0]]],
+          [[dev[0], avo[0]], [dev[0], cou[0]], [dev[0], ser[0]], [dev[0], dev[0]]],
+        ], [
+          [[cou[0], avo[0]], [cou[0], cou[0]], [cou[0], ser[0]], [cou[0], dev[0]]],
+          [[ser[0], avo[0]], [ser[0], cou[0]], [ser[0], ser[0]], [ser[0], dev[0]]],
+          [[dev[0], avo[0]], [dev[0], cou[0]], [dev[0], ser[0]], [dev[0], dev[0]]],
+          [[avo[0], avo[0]], [avo[0], cou[0]], [avo[0], ser[0]], [avo[0], dev[0]]],
+        ], [
+          [[ser[0], avo[0]], [ser[0], cou[0]], [ser[0], ser[0]], [ser[0], dev[0]]],
+          [[dev[0], avo[0]], [dev[0], cou[0]], [dev[0], ser[0]], [dev[0], dev[0]]],
+          [[avo[0], avo[0]], [avo[0], cou[0]], [avo[0], ser[0]], [avo[0], dev[0]]],
+          [[cou[0], avo[0]], [cou[0], cou[0]], [cou[0], ser[0]], [cou[0], dev[0]]],
+        ], [
+          [[dev[0], avo[0]], [dev[0], cou[0]], [dev[0], ser[0]], [dev[0], dev[0]]],
+          [[avo[0], avo[0]], [avo[0], cou[0]], [avo[0], ser[0]], [avo[0], dev[0]]],
+          [[cou[0], avo[0]], [cou[0], cou[0]], [cou[0], ser[0]], [cou[0], dev[0]]],
+          [[ser[0], avo[0]], [ser[0], cou[0]], [ser[0], ser[0]], [ser[0], dev[0]]],
+        ]]
+
+        verbs_insanity = [[
+          [[avo[1], avo[1]], [avo[1], cou[1]], [avo[1], ser[1]], [avo[1], dev[1]]],
+          [[cou[1], avo[1]], [cou[1], cou[1]], [cou[1], ser[1]], [cou[1], dev[1]]],
+          [[ser[1], avo[1]], [ser[1], cou[1]], [ser[1], ser[1]], [ser[1], dev[1]]],
+          [[dev[1], avo[1]], [dev[1], cou[1]], [dev[1], ser[1]], [dev[1], dev[1]]],
+        ], [
+          [[cou[1], avo[1]], [cou[1], cou[1]], [cou[1], ser[1]], [cou[1], dev[1]]],
+          [[ser[1], avo[1]], [ser[1], cou[1]], [ser[1], ser[1]], [ser[1], dev[1]]],
+          [[dev[1], avo[1]], [dev[1], cou[1]], [dev[1], ser[1]], [dev[1], dev[1]]],
+          [[avo[1], avo[1]], [avo[1], cou[1]], [avo[1], ser[1]], [avo[1], dev[1]]],
+        ], [
+          [[ser[1], avo[1]], [ser[1], cou[1]], [ser[1], ser[1]], [ser[1], dev[1]]],
+          [[dev[1], avo[1]], [dev[1], cou[1]], [dev[1], ser[1]], [dev[1], dev[1]]],
+          [[avo[1], avo[1]], [avo[1], cou[1]], [avo[1], ser[1]], [avo[1], dev[1]]],
+          [[cou[1], avo[1]], [cou[1], cou[1]], [cou[1], ser[1]], [cou[1], dev[1]]],
+        ], [
+          [[dev[1], avo[1]], [dev[1], cou[1]], [dev[1], ser[1]], [dev[1], dev[1]]],
+          [[avo[1], avo[1]], [avo[1], cou[1]], [avo[1], ser[1]], [avo[1], dev[1]]],
+          [[cou[1], avo[1]], [cou[1], cou[1]], [cou[1], ser[1]], [cou[1], dev[1]]],
+          [[ser[1], avo[1]], [ser[1], cou[1]], [ser[1], ser[1]], [ser[1], dev[1]]],
+        ]]
+
+        verbs = [ verbs_sanity, verbs_insanity]
+
+        # Modifies word genders based on sanity state.
+        current_sanity  = File.read("_data/npc/dialogue/sanity.txt").to_i # sanity_context.sample
+
+        context_window = [0, 1, 2, 3]
+        row_options    = [0, 1, 2, 3]
+        col_options    = [0, 1, 2, 3]
+        arr_options    = [0, 1]
+
+        # Modifies word genders based on sanity state.
+        cur_san = 0
+
+        cur_con = context_window.sample
+        cur_row =    row_options.sample
+        cur_col =    col_options.sample
+        cur_arr =    arr_options.sample
+
+        chosen_verb = verbs[current_sanity][cur_con][cur_row][cur_col][cur_arr]
+
+        r = ["rapidement.",     "apidementray."]
+        l = ["lentement.",    "tementelay."]
+        a = ["assurement.",     "surementasay."]
+        t = ["tranquillement.", "quillementtranay."]
+
+        adverbs_sanity   = [[
+          [[r[0], r[0]], [r[0], l[0]], [r[0], a[0]], [r[0], t[0]]],
+          [[l[0], r[0]], [l[0], l[0]], [l[0], a[0]], [l[0], t[0]]],
+          [[a[0], r[0]], [a[0], l[0]], [a[0], a[0]], [a[0], t[0]]],
+          [[t[0], r[0]], [t[0], l[0]], [t[0], a[0]], [t[0], t[0]]],
+        ], [
+          [[l[0], r[0]], [l[0], l[0]], [l[0], a[0]], [l[0], t[0]]],
+          [[a[0], r[0]], [a[0], l[0]], [a[0], a[0]], [a[0], t[0]]],
+          [[t[0], r[0]], [t[0], l[0]], [t[0], a[0]], [t[0], t[0]]],
+          [[r[0], r[0]], [r[0], l[0]], [r[0], a[0]], [r[0], t[0]]],
+        ], [
+          [[a[0], r[0]], [a[0], l[0]], [a[0], a[0]], [a[0], t[0]]],
+          [[t[0], r[0]], [t[0], l[0]], [t[0], a[0]], [t[0], t[0]]],
+          [[r[0], r[0]], [r[0], l[0]], [r[0], a[0]], [r[0], t[0]]],
+          [[l[0], r[0]], [l[0], l[0]], [l[0], a[0]], [l[0], t[0]]],
+        ], [
+          [[t[0], r[0]], [t[0], l[0]], [t[0], a[0]], [t[0], t[0]]],
+          [[r[0], r[0]], [r[0], l[0]], [r[0], a[0]], [r[0], t[0]]],
+          [[l[0], r[0]], [l[0], l[0]], [l[0], a[0]], [l[0], t[0]]],
+          [[a[0], r[0]], [a[0], l[0]], [a[0], a[0]], [a[0], t[0]]],
+        ]]
+
+        adverbs_insanity = [[
+          [[r[1], r[1]], [r[1], l[1]], [r[1], a[1]], [r[1], t[1]]],
+          [[l[1], r[1]], [l[1], l[1]], [l[1], a[1]], [l[1], t[1]]],
+          [[a[1], r[1]], [a[1], l[1]], [a[1], a[1]], [a[1], t[1]]],
+          [[t[1], r[1]], [t[1], l[1]], [t[1], a[1]], [t[1], t[1]]],
+        ], [
+          [[l[1], r[1]], [l[1], l[1]], [l[1], a[1]], [l[1], t[1]]],
+          [[a[1], r[1]], [a[1], l[1]], [a[1], a[1]], [a[1], t[1]]],
+          [[t[1], r[1]], [t[1], l[1]], [t[1], a[1]], [t[1], t[1]]],
+          [[r[1], r[1]], [r[1], l[1]], [r[1], a[1]], [r[1], t[1]]],
+        ], [
+          [[a[1], r[1]], [a[1], l[1]], [a[1], a[1]], [a[1], t[1]]],
+          [[t[1], r[1]], [t[1], l[1]], [t[1], a[1]], [t[1], t[1]]],
+          [[r[1], r[1]], [r[1], l[1]], [r[1], a[1]], [r[1], t[1]]],
+          [[l[1], r[1]], [l[1], l[1]], [l[1], a[1]], [l[1], t[1]]],
+        ], [
+          [[t[1], r[1]], [t[1], l[1]], [t[1], a[1]], [t[1], t[1]]],
+          [[r[1], r[1]], [r[1], l[1]], [r[1], a[1]], [r[1], t[1]]],
+          [[l[1], r[1]], [l[1], l[1]], [l[1], a[1]], [l[1], t[1]]],
+          [[a[1], r[1]], [a[1], l[1]], [a[1], a[1]], [a[1], t[1]]],
+        ]]
+
+        adverbs     = [ adverbs_sanity, adverbs_insanity ]
+        current_sanity  = File.read("_data/npc/dialogue/sanity.txt").to_i # sanity_context.sample
+
+        context_window = [0, 1, 2, 3]
+        row_options    = [0, 1, 2, 3]
+        col_options    = [0, 1, 2, 3]
+        arr_options    = [0, 1]
+
+        cur_con = context_window.sample
+        cur_row =    row_options.sample
+        cur_col =    col_options.sample
+        cur_arr =    arr_options.sample
+
+        chosen_adverb = adverbs[current_sanity][cur_con][cur_row][cur_col][cur_arr]
+
+        current_phrase = "#{chosen_word_class} #{chosen_noun} #{chosen_adjective}#{chosen_subject} #{chosen_verb} #{chosen_adverb}"
+  
+        current_phrase
+
+        puts current_phrase
+      end
+    end
+  end
 
   class ObeliskNuerisupu
     #################################################################################
@@ -492,7 +948,7 @@ module Obelisk
     def self.soap_scent(scent)
       scent = scent.strip
 
-      "C'est aussi un parfum de #{scent}. "
+      "Cest aussi un parfum de #{scent}. "
     end
 
     def self.soap_oil(ov)
@@ -530,13 +986,13 @@ module Obelisk
     def self.chicken_size(s)
       s = s.strip
 
-      "C'est aussi le taille #{s}."
+      "Cest aussi le taille #{s}."
     end
 
     def self.chicken_weight(w)
       w = w.strip
 
-      "Et finis, c'est poids est #{w}."
+      "Et finis, cest poids est #{w}."
     end
 
     def self.chicken_breed(gender, size, weight)
@@ -760,7 +1216,7 @@ module Obelisk
     end
 
     def self.buttai(b)
-      "C'est un/une #{b}."
+      "Cest un/une #{b}."
     end
 
     def self.temps(c)
@@ -805,7 +1261,7 @@ module Obelisk
     end
 
     def self.nibuttai(b)
-      "C'est non un/une #{b}."
+      "Cest non un/une #{b}."
     end
 
     def self.netemps(c)
@@ -983,7 +1439,7 @@ module Obelisk
             total_tokens = tokens.size.to_i
             token_index  = 0
     
-            ## The actual tokens you'll be parsing.
+            ## The actual tokens youll be parsing.
             parsed_tokens = [] #of String
     
             if total_tokens > 0
@@ -998,37 +1454,37 @@ module Obelisk
               ###################################################################################################
               #                                         Document Parsing                                        #
               ###################################################################################################  
-              if    parsed_tokens[0] == "arc"
+              if    parsed_tokens[0] == %Q(arc)
                 Obelisk::ObeliskNuerisupu.hairbows(parsed_tokens[1], parsed_tokens[2], parsed_tokens[3])
-              elsif parsed_tokens[0] == "cor"
+              elsif parsed_tokens[0] == %Q(cor)
                 Obelisk::ObeliskNuerisupu.corsets(parsed_tokens[1], parsed_tokens[2], parsed_tokens[3])
-              elsif parsed_tokens[0] == "jup"
+              elsif parsed_tokens[0] == %Q(jup)
                 Obelisk::ObeliskNuerisupu.skirts(parsed_tokens[1], parsed_tokens[2], parsed_tokens[3])
-              elsif parsed_tokens[0] == "bas"
+              elsif parsed_tokens[0] == %Q(bas)
                 Obelisk::ObeliskNuerisupu.stockings(parsed_tokens[1], parsed_tokens[2], parsed_tokens[3])
-              elsif parsed_tokens[0] == "sab"
+              elsif parsed_tokens[0] == %Q(sab)
                 Obelisk::ObeliskNuerisupu.clogs(parsed_tokens[1], parsed_tokens[2], parsed_tokens[3])
-              elsif parsed_tokens[0] == "srg"
+              elsif parsed_tokens[0] == %Q(srg)
                 Obelisk::ObeliskNuerisupu.soap_region(parsed_tokens[1], parsed_tokens[2], parsed_tokens[3])
-              elsif parsed_tokens[0] == "pol"
+              elsif parsed_tokens[0] == %Q(pol)
                 Obelisk::ObeliskNuerisupu.chicken_breed(parsed_tokens[1], parsed_tokens[2], parsed_tokens[3])
-              elsif parsed_tokens[0] == "pom"
+              elsif parsed_tokens[0] == %Q(pom)
                 Obelisk::ObeliskNuerisupu.feed_chicken(parsed_tokens[1], parsed_tokens[2], parsed_tokens[3])
-              elsif parsed_tokens[0] == "rty"
+              elsif parsed_tokens[0] == %Q(rty)
                 Obelisk::ObeliskNuerisupu.stone_type(parsed_tokens[1], parsed_tokens[2], parsed_tokens[3], parsed_tokens[4])
-              elsif parsed_tokens[0] == "cus"
+              elsif parsed_tokens[0] == %Q(cus)
                 Obelisk::ObeliskNuerisupu.puts curse_status(parsed_tokens[1], parsed_tokens[2])
-              elsif parsed_tokens[0] == "ach"
+              elsif parsed_tokens[0] == %Q(ach)
                 Obelisk::ObeliskNuerisupu.puts purchase_status(parsed_tokens[1], parsed_tokens[2], parsed_tokens[3], parsed_tokens[4])
-              elsif parsed_tokens[0] == "cin"
+              elsif parsed_tokens[0] == %Q(cin)
                 Obelisk::ObeliskNuerisupu.cint(parsed_tokens[1].to_i, parsed_tokens[2].to_i)
-              elsif parsed_tokens[0] == "min"
+              elsif parsed_tokens[0] == %Q(min)
                 Obelisk::ObeliskNuerisupu.mint(parsed_tokens[1].to_i, parsed_tokens[2].to_i)
-              elsif parsed_tokens[0] == "sin"
+              elsif parsed_tokens[0] == %Q(sin)
                 Obelisk::ObeliskNuerisupu.sint(parsed_tokens[1].to_i, parsed_tokens[2].to_i)
-              elsif parsed_tokens[0] == "ne"
+              elsif parsed_tokens[0] == %Q(ne)
                 Obelisk::ObeliskNuerisupu.ne(parsed_tokens[1], parsed_tokens[2])
-              elsif parsed_tokens[0] == "mais"
+              elsif parsed_tokens[0] == %Q(mais)
                 Obelisk::ObeliskNuerisupu.mais(parsed_tokens[1], parsed_tokens[2])
 
               ###################################################################################################
@@ -1059,11 +1515,11 @@ module Obelisk
               #    dynamic_mode_switcher
               #  end
 
-              #  current_probability = File.read("data/statistics/probability/current_probability.txt").to_f
-              #  current_information = File.read("data/statistics/label/current_information.txt")
+              #  current_probability = File.read(%Q(data/statistics/probability/current_probability.txt)).to_f
+              #  current_information = File.read(%Q(data/statistics/label/current_information.txt))
 
-              #  puts "#{current_probability} #{current_information}"
-              #elsif parsed_tokens[0] == "asoka"
+              #  puts %Q(#{current_probability} #{current_information})
+              #elsif parsed_tokens[0] == %Q(asoka)
               #  get_radius           = parsed_tokens[0].to_i
               #  circumference_values = calculate_circumference(get_radius)
 
@@ -1077,9 +1533,9 @@ module Obelisk
               ###################################################################################################
               #                                           Quality Of Life                                       #
               ###################################################################################################
-              elsif parsed_tokens[0] == "vio"
-                system("clear")
-              elsif parsed_tokens[0] == "ext"
+              elsif parsed_tokens[0] == %Q(vio)
+                system(%Q(clear))
+              elsif parsed_tokens[0] == %Q(ext)
                 abort
               else
                 current_token = tokens[token_index]
@@ -1102,9 +1558,9 @@ module Obelisk
 
 
     def self.scatter_three_ashes
-      old_fathers  = File.readlines("mce/family/father.txt").uniq.sort.shuffle
-      old_mothers  = File.readlines("mce/family/mother.txt").uniq.sort.shuffle
-      old_children = File.readlines("mce/family/child.txt").uniq.sort.shuffle
+      old_fathers  = File.readlines(%Q(mce/family/father.txt)).uniq.sort.shuffle
+      old_mothers  = File.readlines(%Q(mce/family/mother.txt)).uniq.sort.shuffle
+      old_children = File.readlines(%Q(mce/family/child.txt)).uniq.sort.shuffle
 
       size_limit    = old_fathers.size.to_i
       index         = 0
@@ -1138,10 +1594,10 @@ module Obelisk
     end
 
     def self.scatter_four_ashes
-      old_fathers  = File.readlines("mce/family/father.txt").uniq.sort.shuffle
-      old_mothers  = File.readlines("mce/family/mother.txt").uniq.sort.shuffle
-      old_brothers = File.readlines("mce/family/brother.txt").uniq.sort
-      old_sister   = File.readlines("mce/family/sister.txt").uniq.sort
+      old_fathers  = File.readlines(%Q(mce/family/father.txt)).uniq.sort.shuffle
+      old_mothers  = File.readlines(%Q(mce/family/mother.txt)).uniq.sort.shuffle
+      old_brothers = File.readlines(%Q(mce/family/brother.txt)).uniq.sort
+      old_sister   = File.readlines(%Q(mce/family/sister.txt)).uniq.sort
 
       size_limit    = old_fathers.size.to_i
       index         = 0
@@ -1189,19 +1645,19 @@ module Obelisk
   
       age_percent = age_of_yonagumi - current_year
   
-      " For a point of comparison: Yonagumi is #{age_percent} years old as of #{current_year}."
+      %Q( For a point of comparison: Yonagumi is #{age_percent} years old as of #{current_year}.)
 
-      Obelisk::DataRecycling.obelisk("For a point of comparison: Yonagumi is #{age_percent} years old as of #{current_year}.")
+      Obelisk::DataRecycling.obelisk(%Q(For a point of comparison: Yonagumi is #{age_percent} years old as of #{current_year}.))
       Obelisk::DataRecycling.scatter_ashes
     end
 
     def self.age_comparison(current_year, age_historical, specific_event)
       years_ago = current_year - age_historical
   
-      print "The current year is #{current_year}, #{specific_event} is #{years_ago} years ago."
-      puts Obelisk::DataRecycling.yonagumi(2026.0, "#{specific_event}")
+      print %Q(The current year is #{current_year}, #{specific_event} is #{years_ago} years ago.)
+      puts Obelisk::DataRecycling.yonagumi(2026.0, %Q(#{specific_event}))
       
-      Obelisk::DataRecycling.obelisk("The current year is #{current_year}, #{specific_event} is #{years_ago} years ago.")
+      Obelisk::DataRecycling.obelisk(%Q(The current year is #{current_year}, #{specific_event} is #{years_ago} years ago.))
     end
   end
 
@@ -1307,16 +1763,16 @@ module Obelisk
   
         case current_probability
         when 0.003921569000000000..0.287225000000000000
-          "I'm confident it is not [ #{current_information} ] as its only #{current_probability}."
+          "Im confident it is not [ #{current_information} ] as its only #{current_probability}."
         when 0.287225000000000001..0.522225000000000000
-          "I'm less unconfident it is not [ #{current_information} ] as its only #{current_probability}."
+          "Im less unconfident it is not [ #{current_information} ] as its only #{current_probability}."
         when 0.522225000000000001..0.756112500000000000
-          "I'm almost sure it is [ #{current_information} ] because it has #{current_probability}."
+          "Im almost sure it is [ #{current_information} ] because it has #{current_probability}."
         when 0.756112500000000001..0.999999999999999999
-          "I'm sure it is [ #{current_information} ] after all it has #{current_probability}."
+          "Im sure it is [ #{current_information} ] after all it has #{current_probability}."
 
         else
-          "The probability is either to low or to large, so I can't determine exactly."
+          "The probability is either to low or to large, so I cant determine exactly."
         end
   
         current_probability    = current_probability + 0.15
@@ -1335,16 +1791,16 @@ module Obelisk
   
         case current_probability
         when 0.003921569000000000..0.287225000000000000
-          "I'm confident it is not [ #{current_information} ] as its only #{current_probability}."
+          "Im confident it is not [ #{current_information} ] as its only #{current_probability}."
         when 0.287225000000000001..0.522225000000000000
-          "I'm less unconfident it is not [ #{current_information} ] as its only #{current_probability}."
+          "Im less unconfident it is not [ #{current_information} ] as its only #{current_probability}."
         when 0.522225000000000001..0.756112500000000000
-          "I'm almost sure it is [ #{current_information} ] because it has #{current_probability}."
+          "Im almost sure it is [ #{current_information} ] because it has #{current_probability}."
         when 0.756112500000000001..0.999999999999999999
-          "I'm sure it is [ #{current_information} ] after all it has #{current_probability}."
+          "Im sure it is [ #{current_information} ] after all it has #{current_probability}."
 
         else
-          "The probability is either to low or to large, so I can't determine exactly."
+          "The probability is either to low or to large, so I cant determine exactly."
         end
   
         current_probability    = current_probability * 0.95
@@ -1629,7 +2085,7 @@ module Obelisk
         current_probability = 0.33 * 0.33 * 0.33 * 0.25
         current_label       = symbols[cur_row][cur_col][cur_arr][cur_sub]
         current_description = descriptions[cur_row][cur_col][cur_arr][cur_sub]
-        current_information = "'#{current_label}', '#{current_description}'"
+        current_information = %Q("#{current_label}", "#{current_description}")
   
         File.write("data/statistics/probability/current_probability.txt", "#{current_probability}")
         File.write("data/statistics/label/current_information.txt",            current_information)
@@ -1739,7 +2195,7 @@ module Obelisk
         current_probability = -0.33 * -0.33 * -0.33 * -0.25
         current_label       = symbols[cur_row][cur_col][cur_arr][cur_sub]
         current_description = descriptions[cur_row][cur_col][cur_arr][cur_sub]
-        current_information = "'#{current_label}', '#{current_description}'"
+        current_information = %Q("#{current_label}", "#{current_description}")
   
         File.write("data/statistics/probability/current_probability.txt", "#{current_probability}")
         File.write("data/statistics/label/current_information.txt",            current_information)
@@ -1752,6 +2208,260 @@ end
 
 module GameplayElements
   module Awasunu
+    class ModesOfThought
+      #################################################################################
+      #                           Counterfactual Prediction                           #
+      #################################################################################
+      def probability(prob)
+        rand(prob)
+      end
+
+      def counterfact_selection(*args)
+        a1, a2, b1, b2, c1, c2 = args
+
+        a = a1, a2
+        b = b1, b2
+        c = c1, c2
+
+        counter_factuals = [
+          [[a[0], a[0], a[0]],
+           [a[0], a[0], b[0]],
+           [a[0], a[0], c[0]]],
+
+          [[b[0], b[0], a[0]],
+           [b[0], b[0], b[0]],
+           [b[0], b[0], c[0]]],
+
+          [[c[0], c[0], a[0]],
+           [c[0], c[0], b[0]],
+           [c[0], c[0], c[0]]],
+        ], [
+          [[a[1], a[1], a[1]],
+           [a[1], a[1], b[1]],
+           [a[1], a[1], c[1]]],
+
+          [[b[1], b[1], a[1]],
+           [b[1], b[1], b[1]],
+           [b[1], b[1], c[1]]],
+
+          [[c[1], c[1], a[1]],
+           [c[1], c[1], b[1]],
+           [c[1], c[1], c[1]]],
+        ]
+
+        cf_symbol      = counter_factuals[0]
+        cf_description = counter_factuals[1]
+
+        row_options = [0, 1, 2]
+        col_options = [0, 1, 2]
+        arr_options = [0, 1, 2]
+
+        ## Preselectors
+        nrow_options = [-1, -2, -3]
+        ncol_options = [-1, -2, -3]
+        narr_options = [-1, -2, -3]
+
+        nrow = nrow_options.sample
+        ncol = ncol_options.sample
+        narr = narr_options.sample
+
+        cur_row = row_options[nrow]
+        cur_col = col_options[ncol]
+        cur_arr = arr_options[narr]
+
+        predict_symbol      = cf_symbol[cur_row][cur_col][cur_arr]
+        predict_description = cf_description[cur_row][cur_col][cur_arr]
+        predict_score       = probability(0.99)
+
+        # Predict counterfactual symbol
+        File.write("data/statistics/symbol/current_label.txt",                 predict_symbol)
+
+        # Predict counterfactual score
+        File.write("data/statistics/probability/current_probability.txt", predict_score)
+
+        # Assign information as counterfactual label
+        File.write("data/statistics/label/current_information.txt",            current_information)
+
+        # Create counterfactual description
+        File.write("data/statistics/description/current_description.txt",      predict_description)
+
+        [predict_symbol, predict_description, predict_score]
+      end
+
+      def self.gain
+        current_probability = File.read("data/statistics/probability/current_probability.txt").to_f
+        current_information = File.read("data/statistics/label/current_information.txt")
+
+        if current_probability > 0.999999999999999999
+          current_probability = 0.9 / current_probability
+        end
+  
+        case current_probability
+        when 0.003921569000000000..0.287225000000000000
+          "I'm confident it is not [ #{current_information} ] as its only #{current_probability}."
+        when 0.287225000000000001..0.522225000000000000
+          "I'm less unconfident it is not [ #{current_information} ] as its only #{current_probability}."
+        when 0.522225000000000001..0.756112500000000000
+          "I'm almost sure it is [ #{current_information} ] because it has #{current_probability}."
+        when 0.756112500000000001..0.999999999999999999
+          "I'm sure it is [ #{current_information} ] after all it has #{current_probability}."
+
+        else
+          "The probability is either to low or to large, so I cant determine exactly."
+        end
+  
+        current_probability    = current_probability + 0.15
+  
+        File.write("data/statistics/probability/current_probability.txt", "#{current_probability}")
+        File.write("data/statistics/label/current_information.txt",       current_information)
+      end
+
+      def self.loss
+        current_probability = File.read("data/statistics/probability/current_probability.txt").to_f
+        current_information = File.read("data/statistics/label/current_information.txt")
+
+        if current_probability > 0.999999999999999999
+          current_probability = 0.9 / current_probability
+        end
+  
+        case current_probability
+        when 0.003921569000000000..0.287225000000000000
+          "I'm confident it is not [ #{current_information} ] as its only #{current_probability}."
+        when 0.287225000000000001..0.522225000000000000
+          "I'm less unconfident it is not [ #{current_information} ] as its only #{current_probability}."
+        when 0.522225000000000001..0.756112500000000000
+          "I'm almost sure it is [ #{current_information} ] because it has #{current_probability}."
+        when 0.756112500000000001..0.999999999999999999
+          "I'm sure it is [ #{current_information} ] after all it has #{current_probability}."
+
+        else
+          "The probability is either to low or to large, so I cant determine exactly."
+        end
+  
+        current_probability    = current_probability * 0.95
+  
+        File.write("data/statistics/probability/current_probability.txt", "#{current_probability}")
+        File.write("data/statistics/label/current_information.txt",       current_information)
+      end
+
+      def self.dynamic_reward_allocation
+        l1_reasses = "level one reasses"
+        l2_reasses = "level two reasses"
+        l3_reasses = "level tre reasses"
+        l4_reasses = "level fro reasses"
+
+        reward_model = [
+          [[l1_reasses, l1_reasses, l1_reasses, l1_reasses],
+           [l1_reasses, l1_reasses, l1_reasses, l2_reasses],
+           [l1_reasses, l1_reasses, l1_reasses, l3_reasses],
+           [l1_reasses, l1_reasses, l1_reasses, l4_reasses]],
+   
+          [[l2_reasses, l2_reasses, l2_reasses, l1_reasses],
+           [l2_reasses, l2_reasses, l2_reasses, l2_reasses],
+           [l2_reasses, l2_reasses, l2_reasses, l3_reasses],
+           [l2_reasses, l2_reasses, l2_reasses, l4_reasses]],
+   
+          [[l3_reasses, l3_reasses, l3_reasses, l1_reasses],
+           [l3_reasses, l3_reasses, l3_reasses, l2_reasses],
+           [l3_reasses, l3_reasses, l3_reasses, l3_reasses],
+           [l3_reasses, l3_reasses, l3_reasses, l4_reasses]],
+   
+          [[l4_reasses, l4_reasses, l4_reasses, l1_reasses],
+           [l4_reasses, l4_reasses, l4_reasses, l2_reasses],
+           [l4_reasses, l4_reasses, l4_reasses, l3_reasses],
+           [l4_reasses, l4_reasses, l4_reasses, l4_reasses]],
+        ]
+
+        row_options = [0, 1, 2, 3]
+        col_options = [0, 1, 2, 3]
+        arr_options = [0, 1, 2, 3]
+
+        cur_row = row_options.sample
+        cur_col = col_options.sample
+        cur_arr = arr_options.sample
+
+        current_reward_structure = reward_model[cur_row][cur_col][cur_arr]
+
+        if    current_reward_structure == l1_reasses;            Obelisk::NeuroSymbolic::BasicML.gain
+        elsif current_reward_structure == l2_reasses; 2.times do Obelisk::NeuroSymbolic::BasicML.gain end
+        elsif current_reward_structure == l3_reasses; 3.times do Obelisk::NeuroSymbolic::BasicML.gain end
+        elsif current_reward_structure == l4_reasses; 4.times do Obelisk::NeuroSymbolic::BasicML.gain end
+        else
+          Obelisk::NeuroSymbolic::BasicML.gain
+        end
+      end
+
+      def self.dynamic_guillotine_allocation
+        l1_reasses = "level one reasses"
+        l2_reasses = "level two reasses"
+        l3_reasses = "level tre reasses"
+        l4_reasses = "level fro reasses"
+
+        reward_model = [
+          [[l1_reasses, l1_reasses, l1_reasses, l1_reasses],
+           [l1_reasses, l1_reasses, l1_reasses, l2_reasses],
+           [l1_reasses, l1_reasses, l1_reasses, l3_reasses],
+           [l1_reasses, l1_reasses, l1_reasses, l4_reasses]],
+   
+          [[l2_reasses, l2_reasses, l2_reasses, l1_reasses],
+           [l2_reasses, l2_reasses, l2_reasses, l2_reasses],
+           [l2_reasses, l2_reasses, l2_reasses, l3_reasses],
+           [l2_reasses, l2_reasses, l2_reasses, l4_reasses]],
+   
+          [[l3_reasses, l3_reasses, l3_reasses, l1_reasses],
+           [l3_reasses, l3_reasses, l3_reasses, l2_reasses],
+           [l3_reasses, l3_reasses, l3_reasses, l3_reasses],
+           [l3_reasses, l3_reasses, l3_reasses, l4_reasses]],
+   
+          [[l4_reasses, l4_reasses, l4_reasses, l1_reasses],
+           [l4_reasses, l4_reasses, l4_reasses, l2_reasses],
+           [l4_reasses, l4_reasses, l4_reasses, l3_reasses],
+           [l4_reasses, l4_reasses, l4_reasses, l4_reasses]],
+        ]
+
+        row_options = [0, 1, 2, 3]
+        col_options = [0, 1, 2, 3]
+        arr_options = [0, 1, 2, 3]
+
+        cur_row = row_options.sample
+        cur_col = col_options.sample
+        cur_arr = arr_options.sample
+
+        current_reward_structure = reward_model[cur_row][cur_col][cur_arr]
+
+        if    current_reward_structure == l1_reasses; Obelisk::NeuroSymbolic::BasicML.loss
+        elsif current_reward_structure == l2_reasses; 2.times do Obelisk::NeuroSymbolic::BasicML.loss end
+        elsif current_reward_structure == l3_reasses; 3.times do Obelisk::NeuroSymbolic::BasicML.loss end
+        elsif current_reward_structure == l4_reasses; 4.times do Obelisk::NeuroSymbolic::BasicML.loss end
+        else
+          Obelisk::NeuroSymbolic::BasicML.loss
+        end
+      end
+
+      def self.dynamic_mode_switcher
+        modes = [
+          [["deposit", "deposit"], ["deposit", "extract"]],
+          [["extract", "deposit"], ["extract", "extract"]],
+        ]
+  
+        row_options = [0, 1]
+        col_options = [0, 1]
+        arr_options = [0, 1]
+
+        cur_row = row_options.sample
+        cur_col = col_options.sample
+        cur_arr = arr_options.sample
+
+        current_mode = modes[cur_row][cur_col][cur_arr]
+
+        if    current_mode == "deposit"; Obelisk::NeuroSymbolic::BasicML.dynamic_reward_allocation
+        elsif current_mode == "extract"; Obelisk::NeuroSymbolic::BasicML.dynamic_guillotine_allocation
+        else
+          Obelisk::NeuroSymbolic::BasicML.dynamic_guillotine_allocation
+        end
+      end
+    end
+
     class BasicDSL
       def self.viola
         system("clear")
@@ -1811,11 +2521,11 @@ module GameplayElements
       end
 
       def self.parle_grammaire(v, o, s)
-        GameplayElements::Awasunu::BasicDSL.encrireln("['#{v}', '#{o}','#{s}']")
+        GameplayElements::Awasunu::BasicDSL.encrireln(%Q(["#{v}", "#{o}", "#{s}"]))
       end
 
       def self.nihongotupelo(v, o, s)
-        GameplayElements::Awasunu::BasicDSL.encrireln("['#{v}', '#{o}', '#{s}']")
+        GameplayElements::Awasunu::BasicDSL.encrireln(%Q(["#{v}", "#{o}", "#{s}"]))
       end
 
       ## Grammar
@@ -1824,7 +2534,7 @@ module GameplayElements
       end
 
       def self.mais(third_noun)
-        GameplayElements::Awasunu::BasicDSL.encrireln("mais c'est #{third_noun}. ")
+        GameplayElements::Awasunu::BasicDSL.encrireln("mais cest #{third_noun}. ")
       end
 
       def self.cette(noun, adjective)
@@ -1836,7 +2546,7 @@ module GameplayElements
       end
 
       def self.sinon(noun, adj1, adj2, adj3)
-        GameplayElements::Awasunu::BasicDSL.encrireln("Sinon #{noun} n'est #{adj1} ou #{adj2}, mais c'est #{adj3}.")
+        GameplayElements::Awasunu::BasicDSL.encrireln("Sinon #{noun} nest #{adj1} ou #{adj2}, mais cest #{adj3}.")
       end
 
       def self.parle(character_name, phrase)
@@ -2024,11 +2734,11 @@ module GameplayElements
       end
 
       def self.parle_grammaire(v, o, s)
-        "['#{v}', '#{o}','#{s}']"
+        %Q(["#{v}", "#{o}","#{s}"])
       end
 
       def self.nihongotupelo(v, o, s)
-        "['#{v}', '#{o}', '#{s}']"
+        %Q(["#{v}", "#{o}","#{s}"])
       end
 
       ## Grammar
@@ -2037,7 +2747,7 @@ module GameplayElements
       end
 
       def self.mais(third_noun)
-        "mais c'est #{third_noun}. "
+        "mais cest #{third_noun}. "
       end
 
       def self.cette(noun, adjective)
@@ -2049,7 +2759,7 @@ module GameplayElements
       end
 
       def self.sinon(noun, adj1, adj2, adj3)
-        "Sinon #{noun} n'est #{adj1} ou #{adj2}, mais c'est #{adj3}."
+        "Sinon #{noun} nest #{adj1} ou #{adj2}, mais cest #{adj3}."
       end
 
       def self.bokette(phrase)
@@ -2225,7 +2935,7 @@ module GameplayElements
       # Alsatian ), corsettes, white stockings, and whole foot wooden shoes.                         #
       #                                                                                              #
       # In Lhacurimosa its represented as clothes gradually wearing out, not being easily replaced   #
-      # when they're damaged. Suggested something more suited for dungeon crawling.                  #
+      # when theyre damaged. Suggested something more suited for dungeon crawling.                   #
       ################################################################################################
 
       ## Recursive Garments
@@ -2310,12 +3020,12 @@ module GameplayElements
       # Traditionally weapon, lamp, and knob smith were considered unclean professions, usually done #
       # as a public service when released from colonial prisons. Lamps in particular were the least  #
       # clean do them being crafted large enough to function as solitary confinement. This meant     #
-      # that being able to control the power of a lamp carried connations that don't typically exist #
+      # that being able to control the power of a lamp carried connations that dont typically exist  #
       # in either Japanese or French culture.                                                        #
       #                                                                                              #
       # Do to the types of animals picked for making soap, more generally the connation of being     #
       # washed with that rather than herbal soap, meant the term soap itself being a perjorative for #
-      # those obsessed more by appearances than being authentic. That's not to say people didn't     #
+      # those obsessed more by appearances than being authentic. Thats not to say people didnt       #
       # clean, but that some soaps were seen as marked with blood.                                   #
       ################################################################################################
       # Cursed weapon smith
@@ -2351,7 +3061,7 @@ module GameplayElements
       ################################################################################################
       #                                         Dream Logic                                          #
       ################################################################################################
-      # These are functions specifically in reference to dream patterns I've had when studying my    #
+      # These are functions specifically in reference to dream patterns Ive had when studying my     #
       # my own subconscious. A clever analyst will notice that dream symbols also frequently overlap #
       # with folklore symbols. The difference here is that dream symbols are treated as explicit     #
       # anomalies in order to assess what the unincorporated shadow is.                              #
@@ -2361,7 +3071,7 @@ module GameplayElements
       end
 
       def self.basement_ghost(a, b, c)
-        %Q(#{a} checks on noise in #{b}, and invited to dinner by #{c}. Don't eat #{c}'s food or you'll never leave #{b}.)
+        %Q(#{a} checks on noise in #{b}, and invited to dinner by #{c}. Dont eat #{c}s food or youll never leave #{b}.)
       end
 
       def self.bedroom_coffee_maker(a, b)
@@ -2405,7 +3115,7 @@ module GameplayElements
       end
 
       def self.non_euclid(a, b)
-        %Q(You can fit #{a} inside of #{b} because its exact dimensions aren't defined.)
+        %Q(You can fit #{a} inside of #{b} because its exact dimensions arent defined.)
       end
 
       def self.spot_rainbow_elephant(a, b)
@@ -2425,11 +3135,11 @@ module GameplayElements
       end
 
       def self.poupee_sassoir(a)
-        %Q(Je avoir s'assoir en le chaise a #{a}.)
+        %Q(Je avoir sassoir en le chaise a #{a}.)
       end
 
       def self.nepoupee_sassoir(a)
-        %Q(Je ne avoir s'assoir en le chaise a #{a}.)
+        %Q(Je ne avoir sassoir en le chaise a #{a}.)
       end
 
       def self.ravenauka(a, b)
@@ -2550,9 +3260,9 @@ module GameplayElements
         new_name = nom_de_plumes[cur_row][cur_col][cur_arr]
 
         if new_name == d
-          "Checking if that Dolly's name might be fake: #{ner_name}. All thing accorded..."   
+          "Checking if that Dollys name might be fake: #{ner_name}. All thing accorded..."   
         else
-          "Checking if that Dolly's name might be fake: #{ner_name}. This name seems to be not legitimate."
+          "Checking if that Dollys name might be fake: #{ner_name}. This name seems to be not legitimate."
         end
       end
 
@@ -2566,7 +3276,7 @@ module GameplayElements
       end
 
       def self.buttai(b)
-        "C'est un/une #{b}."
+        "Cest un/une #{b}."
       end
 
       def self.temps(c)
@@ -2611,7 +3321,7 @@ module GameplayElements
       end
 
       def self.nibuttai(b)
-        "C'est non un/une #{b}."
+        "Cest non un/une #{b}."
       end
 
       def self.netemps(c)
@@ -2702,6 +3412,198 @@ module GameplayElements
       ## est relativement mort? 
       def self.est_relativement_mort(a, b, c)
         "Did #{a} find out that the relative #{b} has died?: #{c}"
+      end
+    end
+  end
+
+  module ParanormalMechanics
+    class Cerberus
+      def self.cpp(fake_percent) # convert_from_piano_to_percent
+        # if number is 0.eaaaaf, convert to real percent
+        real_percent = fake_percent.tr ".cdefgab", ".0123456"
+        real_percent = real_percent.to_f
+  
+        real_percent
+      end
+
+      ## Closer to the original intent, where each head represents unfalsifiable probability.
+      def self.cpo(a, b, c, d) # cerberus_piano
+        first_value  = convert_from_piano_to_percent(a) # a.tr ".cdefgab", ".0123456"  #.to_f
+        second_value = convert_from_piano_to_percent(b) # b.tr ".cdefgab", ".0123456" #.to_f
+        third_value  = convert_from_piano_to_percent(c) # c.tr ".cdefgab", ".0123456"  #.to_f
+  
+        first_value  = ( 1 / first_value ) ** d
+        second_value = ( 1 / second_value ) ** d
+        third_value  = ( 1 / third_value ) ** d
+
+        "#{a}, #{b}, #{c} is processed in parallel."
+
+        [ first_value, second_value, third_value ]
+      end
+
+      ## This handles coverted probabilities.
+      def self.cbs(a, b, c, d) # cerberus
+        first_value  = ( 1 / a ) ** d
+        second_value = ( 1 / b ) ** d
+        third_value  = ( 1 / c ) ** d
+
+        "#{a}, #{b}, #{c} is processed in parallel."
+    
+        [ first_value, second_value, third_value ]
+      end
+    end
+
+    class NarrativeMechanics
+      def self.cbe(a, b, c) # Collaborate
+        "#{a} and #{b} collaborate on #{c}."
+      end
+
+      def self.dty(a, b) # dormatory
+        "#{a} is sleeping in dormatory #{b}"
+      end
+
+      def self.srm(a, b) # shared restroom
+        "#{a} shares a restroom with guest #{b}"
+      end
+
+      def self.das(a, b, c, d, e, f, g, h, i, j) # daily_activities
+        "#{a} #{b} #{c} #{d} #{e} #{f} #{g} #{h} #{i} #{j}"
+      end
+
+      def self.nas(a, b, c, d, e) # nightly_activities
+        "#{a} #{b} #{c} #{d} #{e}"
+      end
+
+      def self.dha(a, b) # differentiate_holopersona
+        "#{a} differentiates holopersona #{b}"
+      end
+
+      def self.dhy(a, b) # discuss_history
+        "#{a} discusses personal history with #{b}."
+      end
+
+      def self.fin(a, b) # false_information
+        "#{a} planted false information in #{b}."
+      end
+
+      def self.fsi(a, b) # false_invoice
+        "#{a} filed a false invoice to #{b}."
+      end
+
+      def self.fdd(a, b) # find_descrepancy
+        "There is a descrepancy between #{a} and #{b}."
+      end
+
+      ## Empty the layers of contradiction
+      def self.flb(a, b) # [ Ku xa mun uh ki xoh ] # find_layers_between
+        "The layers between #{a} and #{b} are empty."
+      end
+
+      def self.lcn(a, b) # layer_contradiction
+        "#{a} is a contradiction of #{b}."
+      end
+
+      def self.mfd(a, b) # meet_friends
+        "#{a} meets a friend over at #{b}."
+      end
+
+      def self.bss(a, b) # is_back_same_size
+        "#{a} is size of #{b} #{affirmation}"
+      end
+
+      def self.owp(a, b, c) # observe_wendigo_poodle
+        "#{a} and b observe the wendigo poodle. It destroys photographs of it when you take them. c is where it concentrates at a specific hour."
+      end
+
+      def self.cdp(a, b) # converted_porch
+        "#{a} and b having become an outside porch."
+      end
+
+      def self.psi(a, b) # persona_select_item
+        "#{a} select item #{b}"
+      end
+    end
+
+    class FrancaisMechanique
+      # Derived from "gladius black", a mythological sword that absorbs all light.
+      def self.gss(a, b) # gehadisoneros
+        "#{a} est le gehadisonaros de #{b}."
+      end
+
+      # The space that which the black gladius once took up.
+      def self.nss(a, b) # negehadisoneros
+        "Le espace de #{a} c'est comme un gehadisonaros de #{b}."
+      end
+
+      ## Sangui De Shiyuzumi -- Cinnabar red sumi ink laced with blood
+      def self.sxs(a, b) # svaneguxixumos
+        "#{a} is laced with the color of blood and #{b}."
+      end
+
+      def self.nxs(a, b) # nesvaneguxixumos
+        "#{a} is laced with the color of blood and #{b}."
+      end
+    end
+  end
+
+  module LinguaDeLesEspionnes
+    class NarrativeComponents
+      def self.cnl(a, b) # contain_leakage
+        "#{a} contains leakage of #{b}."
+      end
+
+      def self.epa(a, b, c) # extract_persona
+        "Extract #{a} from #{b}, as a is aware of c"
+      end
+
+      def self.imn(a, b) # impact_mitigation
+        "The impact or mitigation of contradiction #{a} and #{b} in the void."
+      end
+
+      def self.pcr(a, b) # park_car
+        "#{a} parks the car in #{b}."
+      end
+
+      def self.sfn(a, b) # soda_fountain
+        "#{a} located in #b}"
+      end
+
+      def self.jbn(a, b) # joker_the_babarbian
+        "#{a} is a #{b}"
+      end
+
+      ###############################################################################################################
+      #                                           Hybrid FUnctions                                                  #
+      ###############################################################################################################
+      # cette_incongruisho(cette("pomme", "rouge"), "apple", "the table", "garbage can")
+      def self.cinco(i, a, b, c) # cette_incongruisho
+        "#{i}: The #{a} has been found to have a pattern of #{b} in the context of #{c}."
+      end
+
+      # maisette_incongruisho(maisette("pomme", "rouge"), "apple", "the table", "garbage can")
+      def self.masinco(i, a, b, c) # maisette_incongruisho
+        "#{i}: The #{a} has been found to have a pattern of #{b} in the context of #{c}."
+      end
+
+      # sinon_incongruisho(maisette("pomme", "rouge"), "apple", "the table", "garbage can")
+      def self.sinco(i, a, b, c) # sinon_incongruisho
+        "#{i}: The #{a} has been found to have a pattern of #{b} in the context of #{c}."
+      end
+
+      def self.sabinco(i, a, b, c) # sabofensu_incongruisho
+        "Ive forgotten about the impact: #{a} must be taken from #{b} and disposed of at #{c} and forgotten about."
+      end
+
+      def self.saboninco(i, a, b, c) # sabofensu_neincongruisho
+        "I must recheck the impact: Ive forgotten #{a} must have been taken from #{b} and disposed of at #{c}."
+      end
+
+      def self.saborakinco(i, a, b, c) # saborakku_incongruisho
+        "I must recheck: #{a} must be taken from #{b} and relocated to #{c} for research purposes."
+      end
+
+      def self.saboraninco(i, a, b, c) # saborakku_neincongruisho
+        "I must recheck the impact: #{a} must be taken from #{b} and relocated to #{c} for research purposes."
       end
     end
   end
@@ -7767,6 +8669,68 @@ def purchase_status(item, dispenser)
   end
 end
 
+def verrefeuille(*args)
+  leaf_color, leaf_size, leaf_weight,
+  glass_color, glass_size, glass_weight = args
+
+  def leaf_features(lc, ls, lw)
+    "# #{y} #{x} #{z}
+(cfs :color #{lc} :size #{ls} :weight #{lw})"
+  end
+
+  def glass_features(wc, ws, ww)
+    "# #{y} #{x} #{z}
+(cfs :color #{wc} :size #{ws} :weight #{ww})"
+  end
+
+  datapoints = [leaf_featres(leaf_color, leaf_size, leaf_weight),
+                glass_features(glass_color, glass_size, glass_weight)]
+
+  puts datapoints
+
+  Obelisk::DataRecycling.obelisk_scripts(datapoints[0])
+  Obelisk::DataRecycling.obelisk_scripts(datapoints[1])
+end
+
+#################################################################################
+#                        Experimental: Seasons Fragments                        #
+#################################################################################
+def sfragment(*args)
+  wood_grain, wood_strength, wood_age,
+  fire_wavelength, fire_height, fire_period,
+  dirt_dryness, gravel_fineness, grass_sparcity,
+  air_wavelength, air_height, air_period = args
+
+  def spring(wg, ws, wa)
+    "(cfs :grain #{wg} :strength #{ws} :age #{wood_age})"
+  end
+
+  def summer(aw, ah, ap)
+    "(cfs :wavelength #{aw} :height #{ah} :period #{ap})"
+  end
+
+  def fall(dd, gf, gs)
+    "(cfs :dryness #{dd} :fineness #{gravel_fineness} :sparcity #{grass_sparcity})"
+  end
+
+  def winter(fw, fh, gp)
+    "(cfs :wavelength #{fw} :height #{fh} :period #{fp})"
+  end
+
+  seasonal_fragments = [spring(wood_grain, wood_strength, wood_age),
+                        summer(fire_wavelength, fire_height, fire_period),
+                        fall(dirt_dryness, gravel_fineness, grass_sparcity),
+                        winter(air_wavelength, air_height, air_period)]
+
+  print seasonal_fragments
+  puts " "
+
+  Obelisk::DataRecycling.obelisk_scripts(seasonal_fragments[0])
+  Obelisk::DataRecycling.obelisk_scripts(seasonal_fragments[1])
+  Obelisk::DataRecycling.obelisk_scripts(seasonal_fragments[2])
+  Obelisk::DataRecycling.obelisk_scripts(seasonal_fragments[3])
+end
+
 #################################################################################
 #                               Coordinate Actions                              #
 #################################################################################
@@ -7819,6 +8783,24 @@ end
 # beheaded by the sword, with war prisoner corpses causing the island to        #
 # gradually sink.                                                               #
 #################################################################################
+def raiteau(*args)
+  wavelength, height, period,
+  pole_height, pole_depth, pole_stability = args
+
+  def wave_data(wl, wh, wp)
+    "The wave lasted for a length of #{period}, at a wave length of #{wavelength} at height of #{height}."
+  end
+
+  def waterlight_data(ph, pd, ps)
+    "The waterlight has a pole hieght of #{pole_height}, a pole dpeth of #{pole_depth}, and a stability of #{pole_stability}."
+  end
+
+  waterlight_info = [wave_data(wavelength, height, period), waterlight_data(pole_height, pole_depth, pole_stability)]
+
+  Obelisk::DataRecycling.obelisk(waterlight_info[0])
+  Obelisk::DataRecycling.obelisk(waterlight_info[1])
+end
+
 def atoll(*args)
   cemetary_y, cemetary_x, cemetary_d,
   cavern_y, cavern_x, cavern_d = args
@@ -7831,8 +8813,30 @@ def atoll(*args)
     y * x
   end
 
-  ["Cemetary is #{cemetary_y} by #{cemetary_x} or #{cemetary_metrics(cemetary_y, cemetary_x)} at depth #{cemetary_d}",
-   "Cavern is #{cavern_y} by #{cavern_x} or #{cemetary_metrics(cavern_y, cavern_x)} at depth #{cavern_d}"]
+  cemetary_dance = ["Cemetary is #{cemetary_y} by #{cemetary_x} or #{cemetary_metrics(cemetary_y, cemetary_x)} at depth #{cemetary_d}",
+                    "Cavern is #{cavern_y} by #{cavern_x} or #{cemetary_metrics(cavern_y, cavern_x)} at depth #{cavern_d}"]
+
+  Obelisk::DataRecycling.obelisk(cemetary_dance[0])
+  Obelisk::DataRecycling.obelisk(cemetary_dance[1])
+end
+
+def ground_radar(y, x, z, *kwargs)
+  features = kwargs
+
+  size_limit = features.size
+  index = 0
+
+  size_limit.times do
+    selected_feature = features[index]
+
+    puts "#{selected_feature} at #{y} #{x} #{z}"
+
+    Obelisk::DataRecycling.obelisk("#{selected_feature} at #{y} #{x} #{z}")
+
+    index = index + 1
+  end
+
+  Obelisk::DataRecycling.scatter_ashes
 end
 
 def measure_myth(*args)
@@ -7849,27 +8853,7 @@ def measure_myth(*args)
   caction("reality", "partially mythological" "mythological")
 end
 
-# def tree_count(tree_number, *kwargs)
-#   "The precise tree count should be #{tree_number}."
-
-#   anomalous_features = kwargs
-
-#   size_limit = anomalous_features.size.to_i
-#   index = 0
-
-#   size_limit.times do
-#     current_anomaly = anomalous_features[index]
-
-#     print "The current anomaly is that shouldn't be buried here is "
-#     puts current_feature
-
-#     index = index + 1
-#   end
-# end
-
-def tree_count(tree_number, *kwargs)
-  "The precise tree count should be #{tree_number}."
-
+def loup_de_foret(wolf_count, *kwargs)
   anomalous_features = kwargs
 
   size_limit = anomalous_features.size.to_i
@@ -7882,9 +8866,9 @@ def tree_count(tree_number, *kwargs)
     new_index = 0
 
     new_iteration.times do
-      puts "The current anomaly is that shouldn't be buried here is #{current_anomaly[new_index]}"
+      puts "The precise wolf count should be #{wolf_count}. The current anomaly is that shouldn't be in this #{current_location} is #{current_anomaly[new_index]}"
  
-      urn_logic = "The current anomaly is that shouldn't be buried here is #{current_anomaly[new_index]}"
+      urn_logic = "The precise wolf count should be #{wolf_count}. The current anomaly is that shouldn't be in this #{current_location} is #{current_anomaly[new_index]}"
 
       Obelisk::DataRecycling.obelisk(urn_logic)
 
@@ -7897,18 +8881,55 @@ def tree_count(tree_number, *kwargs)
   Obelisk::DataRecycling.scatter_ashes
 end
 
-def ground_radar(y, x, z, *kwargs)
-  features = kwargs
+def black_sheep(sheep_count, *kwargs)
+  anomalous_features = kwargs
 
-  size_limit = features.size
+  size_limit = anomalous_features.size.to_i
   index = 0
 
   size_limit.times do
-    selected_feature = features[index]
+    current_anomaly = anomalous_features[index]
 
-    puts "#{selected_feature} at #{y} #{x} #{z}"
+    new_iteration = current_anomaly.size
+    new_index = 0
 
-    Obelisk::DataRecycling.obelisk("#{selected_feature} at #{y} #{x} #{z}")
+    new_iteration.times do
+      puts "The precise sheep count should be #{sheep_count}. The current anomaly is that shouldn't be in this #{current_location} is #{current_anomaly[new_index]}"
+ 
+      urn_logic = "The precise sheep count should be #{sheep_count}. The current anomaly is that shouldn't be in this #{current_location} is #{current_anomaly[new_index]}"
+
+      Obelisk::DataRecycling.obelisk(urn_logic)
+
+      new_index = new_index + 1
+    end
+
+    index = index + 1
+  end
+
+  Obelisk::DataRecycling.scatter_ashes
+end
+
+def tree_count(tree_number, *kwargs)
+  anomalous_features = kwargs
+
+  size_limit = anomalous_features.size.to_i
+  index = 0
+
+  size_limit.times do
+    current_anomaly = anomalous_features[index]
+
+    new_iteration = current_anomaly.size
+    new_index = 0
+
+    new_iteration.times do
+      puts "The precise tree count should be #{tree_number}. The current anomaly is that shouldn't be buried here is #{current_anomaly[new_index]}"
+ 
+      urn_logic = "The precise tree count should be #{tree_number}. The current anomaly is that shouldn't be buried here is #{current_anomaly[new_index]}"
+
+      Obelisk::DataRecycling.obelisk(urn_logic)
+
+      new_index = new_index + 1
+    end
 
     index = index + 1
   end
