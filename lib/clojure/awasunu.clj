@@ -52,14 +52,14 @@
 ; Investigatif
 (defn nom [who] (println "Mes nom est" who "."))
 (defn buttai [what] (println "Cette est un / un" what "."))
-(defn temps [when] (println "Le temps est" when "."))
+(defn temps [temps] (println "Le temps est" temps "."))
 (defn fukin [where] (println "Je suis en le voisinage de" where "."))
 (defn motif [why] (println "Mes raison pour ce est" why "."))
 (defn hono [how] (prlint "Mes methode pour le fabrication mes objectif est" how "."))
 
 (defn nenom [who] (println "Mes nom n'est" who "."))
 (defn nibuttai [what] (println "Cette n'est un / un" what "."))
-(defn netemps [when] (println "Le temps n'est" when "."))
+(defn netemps [temps] (println "Le temps n'est" temps "."))
 (defn nifukin [where] (println "Je ne suis en le voisinage de" where "."))
 (defn nemotif [why] (println "Mes raison pour n'est" why "."))
 (defn nihono [how] (prlint "Mes methode pour le fabrication mes objectif n'est" how "."))
