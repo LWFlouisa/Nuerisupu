@@ -12,6 +12,9 @@
 (defn vos [v o s] (println v o s))
 (defn vso [v s o] (println v s o))
 
+; Compound Grammar
+(defn exp [phrase_one phrase_two] (println phrase_one phrase_two))
+
 ; List types
 (defn pgram [v o s ln] (println ln "=" "[" v ", " o ", " s "]"))
 (defn ntupe [v o s ln] (println ln "=" "[" v ", " o ", " s "]"))
