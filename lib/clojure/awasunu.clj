@@ -86,10 +86,10 @@
 ; The impact of knowledge transferred to a different domain.
 (defn nsr [a] (println "Moi se ne deplacer un avis de" a ".")) ; nesaborakku
 
-## Instructing a doll to sit down.
+; Instructing a doll to sit down.
 (defn posa [a] (println "Je avoir s'assoir en le chaise a" a ".")) ; poupee_sassoir
 (defn npsa [a] (println "Je ne avoir s'assoir en le chaise a" a "."))
 
-# Turn off the television
+; Turn off the television
 (defn inc [object previous_location ccycle] (println "The" object "must be taken from" previous_location "and disposed of at" ccycle "and forgotten about.")) ; incongruisho
 (defn nco [impact pattern context] (println "The impact of" a "from the pattern of" b "in the context of" c "and forgotten about."))                          ; neincongruisho
