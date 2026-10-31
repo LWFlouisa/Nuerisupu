@@ -11,4 +11,9 @@ Do Not Assume because we met before that you have permission to change or alter 
 
 You must retain this code of conduct in its entirety, when forking to propose new changes. Said branches must meet specific minal operational standards: Unsolicited proposals are deleted unread.
 
+( When submitting code, make sure the code represents words people understand, especially when fixing errors in the syntax.
+( When nested lists of arrays, be a detailed as possible in plain English, French, or Spanish. It's find to feel like a miniature wikipedia article.
+( Global variables are fine in languages that support it, and where not available assign to variables from file documents. Local requirements breaks persistance.
+( Others as a I nest some methods about the requirements.
+
 <b>Security Research</b> There is no bug bounty program for this repository, disclosure without offered patches will be deleted unread. This includes not editing this section without explicit written permission.
