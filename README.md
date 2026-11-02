@@ -73,3 +73,8 @@ Measuring the size of a chicken to adjust how many Rubies you feed a one.
 [":size", "le_taille_de_le_bas_est_petite\n", 0.7105706786732486] 
 [":color", "le_colour_de_le_bas_est_brown", 0.10739952037779062] 
 ~~~
+
+## Embedded C Domain Specific Language
+DradaC is an embedded C version of Awasunu and Naked Lisp in order to be able to transpile code to Awasunu.
+
+[DradaC](https://github.com/LWFlouisa/Drada)
