@@ -4,9 +4,9 @@ An early prototype of a French-Syntax language for my Science Fiction setting. Y
 ## Narrative Context
 Before engaging with my software, please read my web fiction and webcomics first, as these are prerequisites:
 
-[Uploaded Fairy](https://lwflouisa.github.io/pages/prose/UploadedFairyWebfiction/)
-[Uploaded Fairy Webcomic](https://lwflouisa.github.io/pages/webcomics/UploadedFairy/)
-[Ahuzacos Conlang](https://lwflouisa.github.io/pages/Ahuzacos/)
+[Uploaded Fairy](https://lwflouisa.github.io/pages/prose/UploadedFairyWebfiction/)<br />
+[Uploaded Fairy Webcomic](https://lwflouisa.github.io/pages/webcomics/UploadedFairy/)<br />
+[Ahuzacos Conlang](https://lwflouisa.github.io/pages/Ahuzacos/)<br />
 
 Then play my game:
 
