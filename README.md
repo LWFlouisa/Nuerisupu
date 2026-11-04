@@ -1,6 +1,19 @@
 ## Nuerisupu
 An early prototype of a French-Syntax language for my Science Fiction setting. You can view this for scripting languages, what Esperanto is to conlangs. A language that learns its own intermediate representation and feeding it back into its own intermediate representation generations.
 
+## Narrative Context
+Before engaging with my software, please read my web fiction and webcomics first, as these are prerequisites:
+
+[Uploaded Fairy](https://lwflouisa.github.io/pages/prose/UploadedFairyWebfiction/)
+[Uploaded Fairy Webcomic](https://lwflouisa.github.io/pages/webcomics/UploadedFairy/)
+[Ahuzacos Conlang](https://lwflouisa.github.io/pages/Ahuzacos/)
+
+Then play my game:
+
+[Games](https://github.com/LWFlouisa/pages/tree/main/Games)
+
+Otherwise pull requests and issues will go unread and removed. I'm trying to refocus on Codeberg development.
+
 ## Using CState
 This is a work in progress for showing how aspects of my language would work in my own games.
 
