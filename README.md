@@ -1,6 +1,11 @@
 ## Nuerisupu
 An early prototype of a French-Syntax language for my Science Fiction setting. You can view this for scripting languages, what Esperanto is to conlangs. A language that learns its own intermediate representation and feeding it back into its own intermediate representation generations.
 
+### Engineering Concept
+Maspace ( Wasbace ) - [ Wa seh bah cey ] The space between primitive constructs; generally in a programming context.
+
+Tedupedu ( Troupre ) - [ Teh doo peh doo ] Derived from Trouve De Predessor / Trouve De Prédécocèseor, is functionally based on finding ancestral evidence based on documentation and known technology.
+
 ## Narrative Context
 Before engaging with my software, please read my web fiction and webcomics first, as these are prerequisites:
 
